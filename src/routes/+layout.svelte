@@ -1,22 +1,19 @@
 <script lang="ts">
-	import Header from './Header.svelte';
-	import '../app.css';
+	import Footer from '$lib/components/Footer.svelte';
+import Navbar from '$lib/components/Navbar.svelte';
+import '../app.css';
 
 	let { children } = $props();
 </script>
 
 <div class="app">
-	<Header />
+	<Navbar isAuthorized={true}/>
 
 	<main>
 		{@render children()}
 	</main>
 
-	<footer>
-		<p>
-			visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to learn about SvelteKit
-		</p>
-	</footer>
+	<Footer />
 </div>
 
 <style>
