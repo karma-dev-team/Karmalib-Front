@@ -1,57 +1,68 @@
 <script lang="ts">
-	import { UserTypes } from '$lib/enums/UserTypes';
-    import arrowDown from '$lib/images/ArrowDown.svg'
+    import logoImage from '$lib/images/KarmaLibLogo.png'
+	import EmailModal from './EmailModal.svelte';
     import NavSearchbar from './NavSearchbar.svelte';
 
     export let isAuthorized: boolean; 
+
+    // State to control modal visibility and initial "from" email address
+    let showModal: boolean = false;
+    let fromEmail: string = "your.email@example.com";
+
+    // Toggle modal visibility
+    function toggleModal() {
+        showModal = !showModal;
+    }
+
+    // Handle sending email data (you would typically send this to an API)
+    function handleSend(event: CustomEvent<{ fromEmail: string; message: string }>) {
+        const emailData = event.detail;
+        console.log("Email data to be sent:", emailData);
+        toggleModal(); // Close modal after "sending"
+    }
 </script>
 
 <header class="navbar"> 
     <nav class="navbar-left">
-        <div class="navbar-logo">
-            <a href="/">Flsurf</a>
-        </div>
-        <div class="navbar-find-work navbar-element">
-            Найти работу
-
-            <div class="navbar-dropdown">
-                <a href="/jobs" class="dropdown-li">Найти заказ</a>
-                <a href="/jobs/saved" class="dropdown-li">Сохраненные работы</a>
-                <a href="/jobs/user" class="dropdown-li">Ваши ставки</a>
+        <div class="navbar-header">
+            <div class="navbar-category">
+                СМОТРЕТЬ КАТЕГОРИИ
             </div>
 
-            <img class="arrow-down" src={arrowDown} alt=":P">
+            <div class="navbar-right-bar">
+                <a href="/news" class="navbar-news">
+                    Новости
+                </a>
+                <div class="navbar-send-mail">
+                    <button class="open-button" on:click={toggleModal}>Email us</button>
+                </div>
+            </div>
         </div>
-        
-        <div class="navbar-my-work navbar-element">
-            Моя работа
 
-            <div class="navbar-dropdown">
-                <a href="/jobs/active" class="dropdown-li">Ваша активная работа</a>
-                <a href="/jobs/history" class="dropdown-li">История клиентов</a>
+        <div class="navbar-bottom">
+            <div class="navbar-logo">
+                <img src={logoImage} alt=""/>
+            </div>
+            <div class="navbar-find-work navbar-element">
+                Найти работу
+            </div>
+            
+            <div class="navbar-my-work navbar-element">
+                Моя работа                  
             </div>
 
-            <img class="arrow-down" src={arrowDown} alt=":P">                    
-        </div>
-
-        <div class="navbar-element">
-            Финансы
-        
-            <div class="navbar-dropdown">
-                <a href="/finances/summary" class="dropdown-li">Обзор финансов</a>
-                <a href="/finances/reports" class="dropdown-li">Финансовые отчеты</a>
-                <a href="/finances/transactions" class="dropdown-li">Транзакции</a>
-                <a href="/user/settings/getpaid" class="dropdown-li">Выплаты</a>                    
+            <div class="navbar-element">
+                Финансы
             </div>
 
-            <img class="arrow-down" src={arrowDown} alt=":P">
-        </div>
+            {#if showModal}
+                <EmailModal fromEmail={fromEmail} on:send={handleSend} on:close={toggleModal} />
+            {/if}
 
-        {#if isAuthorized}
             <a href="/messages" class="navbar-element">
                 Сообщения
             </a>
-        {/if}
+        </div>
     </nav>
     <nav class="navbar-right">
         <NavSearchbar />
@@ -69,52 +80,13 @@
         align-items: center;    
     }
 
+    .navbar-element { 
+        color: white; 
+    }
+
     .navbar a { 
         text-decoration: none;
-        color: black; 
-    }
-
-    .navbar-dropdown  {
-        display: none;
-        position: absolute;
-        background-color: #f9f9f9;
-        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-        padding: 10px 0; 
-        margin-top: 10px; 
-        border-radius: 5px;
-        background-clip: padding-box;
-        min-width: 240px;
-    }
-
-    .navbar-dropdown:after {
-        content: "";
-        display: block;
-        position: absolute;
-        top: -15px;
-        width: 100%;
-        height: 15px;
-        z-index: 0;
-      }
-
-    .navbar-dropdown:before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: -15px;
-        left: 28px;
-        border: 8px solid rgb(219, 219, 219);
-        border-color: rgb(255, 255, 255) transparent transparent transparent;
-        transform: translateX(-50%) rotate(180deg);
-        box-shadow: -2px 2px 3px -1px rgb(219, 219, 219);
-    }
-
-    .navbar-dropdown a:hover { 
-        background-color: rgb(229, 229, 229);
-    }
-
-    .navbar-element:hover .navbar-dropdown {
-        display: block;
+        color: white; 
     }
 
     .navbar-element { 
@@ -124,19 +96,6 @@
 
     .navbar-logo { 
         margin-right: 15px;
-    }
-
-    .navbar-dropdown a { 
-        color: black;
-        padding: 5px 15px;
-        text-decoration: none;
-        display: block;
-    }
-
-    .arrow-down { 
-        height: 10px;
-        width: 13px;
-        margin-left: 4px; 
     }
 
     .navbar-element { 
@@ -150,7 +109,7 @@
         margin-right: auto;
         width: min(100%, 1600px);
         flex-wrap: wrap;
+        background-color: #2E303D;
         justify-content: space-between;
-        border-bottom: 1px solid rgba(189, 189, 189, 0.3); 
     }
 </style>
