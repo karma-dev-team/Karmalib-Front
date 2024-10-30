@@ -1,44 +1,30 @@
 <script lang="ts">
     import logoImage from '$lib/images/KarmaLibLogo.png'
-	import EmailModal from './EmailModal.svelte';
     import NavSearchbar from './NavSearchbar.svelte';
 
     export let isAuthorized: boolean; 
 
-    // State to control modal visibility and initial "from" email address
-    let showModal: boolean = false;
-    let fromEmail: string = "your.email@example.com";
+    let showPopup = false;
 
-    // Toggle modal visibility
-    function toggleModal() {
-        showModal = !showModal;
-    }
-
-    // Handle sending email data (you would typically send this to an API)
-    function handleSend(event: CustomEvent<{ fromEmail: string; message: string }>) {
-        const emailData = event.detail;
-        console.log("Email data to be sent:", emailData);
-        toggleModal(); // Close modal after "sending"
-    }
 </script>
 
 <header class="navbar"> 
-    <nav class="navbar-left">
-        <div class="navbar-header">
-            <div class="navbar-category">
-                СМОТРЕТЬ КАТЕГОРИИ
-            </div>
-
-            <div class="navbar-right-bar">
-                <a href="/news" class="navbar-news">
-                    Новости
-                </a>
-                <div class="navbar-send-mail">
-                    <button class="open-button" on:click={toggleModal}>Email us</button>
-                </div>
-            </div>
+    <div class="navbar-header">
+        <div class="navbar-category">
+            СМОТРЕТЬ КАТЕГОРИИ
         </div>
 
+        <div class="navbar-right-bar">
+            <a href="/news" class="navbar-news">
+                Новости
+            </a>
+            <div class="navbar-send-mail">
+                <button class="open-button">Email us</button>
+
+            </div>
+        </div>
+    </div>
+    <nav class="navbar-left">
         <div class="navbar-bottom">
             <div class="navbar-logo">
                 <img src={logoImage} alt=""/>
@@ -55,24 +41,45 @@
                 Финансы
             </div>
 
-            {#if showModal}
-                <EmailModal fromEmail={fromEmail} on:send={handleSend} on:close={toggleModal} />
-            {/if}
+
 
             <a href="/messages" class="navbar-element">
                 Сообщения
             </a>
+
+            <nav class="navbar-search-bar">
+                <NavSearchbar />
+            </nav>
         </div>
-    </nav>
-    <nav class="navbar-right">
-        <NavSearchbar />
     </nav>
 </header>
 
 <style>
+    .navbar-left { 
+        display: flex;
+    }
+
     .navbar-logo * { 
         color: green; 
         font-size: large;
+    }
+
+    .navbar { 
+        flex-direction: column;
+    }
+
+    .navbar-header { 
+        justify-content: space-between;
+        width: 100%;
+        padding: 0 50px; 
+    }
+
+    .navbar-right-bar, .navbar-header, .navbar-bottom { 
+        display: flex;
+    }
+
+    .navbar-category { 
+        color: white; 
     }
 
     .navbar, .navbar-left, .navbar-element { 
