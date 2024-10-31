@@ -7,7 +7,7 @@ import '../app.css';
 </script>
 
 <div class="app">
-	<Navbar isAuthorized={true}/>
+	<Navbar isAuthorized={false}/>
 
 	<main>
 		{@render children()}
