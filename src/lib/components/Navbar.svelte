@@ -130,7 +130,7 @@
         </div>
 
         <div class="navbar-right-bar">
-            <a href="/news" class="navbar-news">
+            <a href="/forum/news" class="navbar-news">
                 Новости
             </a>
             <div class="navbar-send-mail">
@@ -158,7 +158,7 @@
 
 
 
-            <a href="/messages" class="navbar-element">
+            <a href="/messages/chat" class="navbar-element">
                 Сообщения
             </a>
         </div>
@@ -185,7 +185,7 @@
                     <img src="#" alt="" class="avatar-icon">
                 </div>
             {:else}
-                <a href="/login" class="login-button">Войти</a>
+                <a href="/auth/login" class="login-button">Войти</a>
             {/if}
 
         </div>

@@ -9,7 +9,7 @@ import '../app.css';
 <div class="app">
 	<Navbar isAuthorized={false}/>
 
-	<main>
+	<main class="body-class">
 		{@render children()}
 	</main>
 
@@ -33,7 +33,7 @@ import '../app.css';
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
-
+/* 
 	footer {
 		display: flex;
 		flex-direction: column;
@@ -50,5 +50,5 @@ import '../app.css';
 		footer {
 			padding: 12px 0;
 		}
-	}
+	} */
 </style>
