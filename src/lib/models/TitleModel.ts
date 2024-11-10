@@ -1,6 +1,6 @@
 interface TitleModel { 
     logo: FileModel; 
-    name: String; 
+    name: string; 
     type: TitleTypes; 
-    rating: String; 
+    rating: string; 
 }

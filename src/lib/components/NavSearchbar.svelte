@@ -1,7 +1,7 @@
 <script lang="ts">
-  import searchIcon from '$lib/images/SearchIcon.svg'
+    import searchIcon from '$lib/images/SearchIcon.svg'
   
-  let searchQuery = '';
+   let searchQuery = '';
 </script>
   
 <style>

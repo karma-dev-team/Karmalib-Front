@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let title: TitleModel; 
+    let { title }: {title: TitleModel} = $props(); 
 </script>
 
 <div class="card-main">
