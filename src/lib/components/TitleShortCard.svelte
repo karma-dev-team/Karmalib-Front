@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { TitleModel } from "$lib/models/TitleModel";
+
     let { title }: {title: TitleModel} = $props(); 
 </script>
 

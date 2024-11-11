@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { PushNotificationModel } from "$lib/models/PushNotificationModel";
+
 
     let { 
         notifications, 

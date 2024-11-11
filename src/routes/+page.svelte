@@ -1,38 +1,9 @@
 <script lang="ts">
 	import TitleShortCard from '$lib/components/TitleShortCard.svelte';
-	import logoImage from '$lib/images/KarmaLibLogo.png';
 
-	const popularItems: TitleModel[] = [
-		{ name: "Таинственная деревня", rating: "9.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Выживание в Апокалипсисе", rating: "8.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Я — ранкер, даже когда сплю", rating: "8.7", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Таинственная деревня", rating: "9.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Выживание в Апокалипсисе", rating: "8.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Я — ранкер, даже когда сплю", rating: "8.7", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Таинственная деревня", rating: "9.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Выживание в Апокалипсисе", rating: "8.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Я — ранкер, даже когда сплю", rating: "8.7", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Таинственная деревня", rating: "9.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Выживание в Апокалипсисе", rating: "8.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Я — ранкер, даже когда сплю", rating: "8.7", type: TitleTypes.Manxva, imgSrc: logoImage },
-		// Добавьте остальные элементы
-	];
+	export let data; 
 
-	const hotNewsItems: TitleModel[] = [
-		{ name: "Мне было предначертано...", rating: "8.6", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Варвар с Сеульского вокзала", rating: "9.2", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Рейдер", rating: "9.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Таинственная деревня", rating: "9.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Выживание в Апокалипсисе", rating: "8.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Я — ранкер, даже когда сплю", rating: "8.7", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Таинственная деревня", rating: "9.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Выживание в Апокалипсисе", rating: "8.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Я — ранкер, даже когда сплю", rating: "8.7", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Таинственная деревня", rating: "9.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Выживание в Апокалипсисе", rating: "8.5", type: TitleTypes.Manxva, imgSrc: logoImage },
-		{ name: "Я — ранкер, даже когда сплю", rating: "8.7", type: TitleTypes.Manxva, imgSrc: logoImage },
-		// Добавьте остальные элементы
-	];
+	let { popularItems, hotNewsItems } = data; 
 
 	let popularScroll: HTMLElement;
 	let hotNewsScroll: HTMLElement;
@@ -70,7 +41,7 @@
 			<div class="catalog-cards">
 				{#each hotNewsItems as item}
 					<div>
-						<TitleShortCard name={item} />
+						<TitleShortCard title={item} />
 					</div>
 				{/each}
 			</div>
