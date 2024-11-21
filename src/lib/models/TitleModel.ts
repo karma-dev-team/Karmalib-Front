@@ -5,5 +5,7 @@ export interface TitleModel {
     logo: FileModel; 
     name: string; 
     type: TitleTypes; 
-    rating: string; 
+    rating: string;
+    genre: string;
+    description?: string;
 }

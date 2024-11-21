@@ -1,50 +1,51 @@
-<script lang="ts">
-    import searchIcon from '$lib/images/SearchIcon.svg'
-  
-   let searchQuery = '';
+<script>
+  import { goto } from '$app/navigation';
+
+  let searchQuery = '';
+
+  function performSearch() {
+    if (searchQuery.trim()) {
+      goto(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  }
 </script>
-  
+
 <style>
   .search-bar {
     display: flex;
+    gap: 10px;
     align-items: center;
-    border: 2px solid rgba(131, 133, 144, 0.5);
-    border-radius: 5px;
-    padding: 4px 2px;
-    padding-right: 7px; 
-    position: relative;
-    max-width: 800px;
-    transition: max-width .2s ease-in-out;
-    background-color: #2E303D;
-    min-width: 500px;
   }
 
-  .search-bar input[type="text"] {
-    border: none;
-    outline: none;
-    flex: 1;
-    margin-left: 7px;
+  input {
     padding: 5px;
+    font-size: 16px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
 
-  .search-bar input { 
-    background-color: #2E303D;
-    caret-color: white;
-    font-size: 14px; 
+  button {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
   }
 
-  .search-input { 
-    font-size: 14px; 
-  }
-
-  .search-icon { 
-    padding: 4px; 
-    width: 29px; 
+  button:hover {
+    background-color: #0056b3;
   }
 </style>
 
 <div class="search-bar">
-  <input type="text" placeholder="Search" bind:value={searchQuery} class="search-input"/>
-  
-  <img src={searchIcon} alt="" class="search-icon">
+  <input
+    type="text"
+    bind:value={searchQuery}
+    placeholder="Введите запрос..."
+    on:keydown={(e) => e.key === 'Enter' && performSearch()}
+  />
+  <button on:click={performSearch}>Искать</button>
 </div>

@@ -153,6 +153,7 @@
             </div>
 
             <div class="navbar-element">
+                <a href="/title/top" class="login-button">Войти</a>
                 Финансы
             </div>
 
