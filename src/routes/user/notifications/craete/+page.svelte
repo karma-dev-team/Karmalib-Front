@@ -1,5 +1,5 @@
 <script lang="ts">
-    // Увдомления
+    // Закладки 
 </script>
 
 <div></div>
