@@ -4,17 +4,6 @@
 	export let data; 
 
 	let { popularItems, hotNewsItems } = data; 
-
-	let popularScroll: HTMLElement;
-	let hotNewsScroll: HTMLElement;
-
-	function scrollLeft(element: HTMLElement) {
-		element.scrollBy({ left: -300, behavior: 'smooth' });
-	}
-
-	function scrollRight(element: HTMLElement) {
-		element.scrollBy({ left: 300, behavior: 'smooth' });
-	}
 </script>
 
 <main class="main-content">
