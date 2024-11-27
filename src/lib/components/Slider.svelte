@@ -1,56 +1,51 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import TitleShortCard from "./TitleShortCard.svelte";
+	import TitleShortCard from "./TitleShortCard.svelte";
+	import type { TitleModel } from "$lib/models/TitleModel";
 
-    let { titles }: { titles: TitleModel[] } = $props();
-    
+    export let titles: TitleModel[] = []; // Принимаем массив TitleModel
 
-    // State variables
+    let scrollContainer: HTMLDivElement;
     let scrollPosition = 0;
     let maxScroll = 0;
-    let showLeftArrow = $state(false);
-    let showRightArrow = $state(false);
-    let isMobile = $state(false);
-    let sliderContainer: HTMLDivElement;
+    let showLeftArrow = false;
+    let showRightArrow = false;
+    let isMobile = false;
 
-    // Set up event listeners and responsive behavior on mount
     onMount(() => {
-        // Set max scroll based on slider content width
         updateMaxScroll();
-        
-        // Update isMobile flag based on screen width
+
+        // Определение мобильности
         isMobile = window.innerWidth <= 768;
         window.addEventListener("resize", () => {
             isMobile = window.innerWidth <= 768;
+            updateMaxScroll();
         });
     });
 
-    // Update max scroll position based on content
     function updateMaxScroll() {
-        if (sliderContainer) {
-            maxScroll = sliderContainer.scrollWidth - sliderContainer.clientWidth;
+        if (scrollContainer) {
+            maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
             updateArrows();
         }
     }
 
-    // Update arrow visibility based on scroll position
     function updateArrows() {
         showLeftArrow = scrollPosition > 0;
         showRightArrow = scrollPosition < maxScroll;
     }
 
-    // Scroll functions
     function scrollLeft() {
-        if (sliderContainer) {
-            sliderContainer.scrollBy({ left: -200, behavior: "smooth" });
+        if (scrollContainer) {
+            scrollContainer.scrollBy({ left: -200, behavior: "smooth" });
             scrollPosition = Math.max(0, scrollPosition - 200);
             updateArrows();
         }
     }
 
     function scrollRight() {
-        if (sliderContainer) {
-            sliderContainer.scrollBy({ left: 200, behavior: "smooth" });
+        if (scrollContainer) {
+            scrollContainer.scrollBy({ left: 200, behavior: "smooth" });
             scrollPosition = Math.min(maxScroll, scrollPosition + 200);
             updateArrows();
         }
@@ -58,91 +53,78 @@
 </script>
 
 <style>
-    /* Wrapper styling */
-    .slider-wrapper {
+    .scroll-wrapper {
         position: relative;
         width: 100%;
         overflow: hidden;
     }
 
-    /* Container for the slider items */
-    .slider-container {
+    .scroll-container {
         display: flex;
+        gap: 1rem;
         overflow-x: auto;
         scroll-behavior: smooth;
         padding: 1rem 0;
-        gap: 1rem;
     }
 
-    /* Base styles for both arrow buttons */
-    .arrow {
+    .scroll-button {
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
         background-color: rgba(0, 0, 0, 0.6);
-        border: none;
         color: white;
-        font-size: 1.5rem;
+        border: none;
+        border-radius: 50%;
         width: 2.5rem;
         height: 2.5rem;
-        border-radius: 50%;
-        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: opacity 0.3s ease;
+        cursor: pointer;
         opacity: 0;
+        transition: opacity 0.3s ease;
     }
 
-    /* Show buttons on hover */
-    .slider-wrapper:hover .arrow {
+    .scroll-wrapper:hover .scroll-button {
         opacity: 1;
     }
 
-    /* Left arrow */
-    .arrow.left {
+    .scroll-button.left {
         left: 0.5rem;
     }
 
-    /* Right arrow */
-    .arrow.right {
+    .scroll-button.right {
         right: 0.5rem;
     }
 
-    /* Optional: make buttons only appear when hovering near the left/right edges */
-    .slider-wrapper:hover .arrow.left:hover,
-    .slider-wrapper:hover .arrow.right:hover {
-        opacity: 1;
-    }
-
-    /* Mobile: Hide arrows */
     @media (max-width: 768px) {
-        .arrow {
+        .scroll-button {
             display: none;
         }
     }
 </style>
 
-<div class="slider-wrapper">
+<div class="scroll-wrapper">
     {#if showLeftArrow && !isMobile}
-        <button class="arrow left" onclick={() => scrollLeft()}>⬅️</button>
+        <button class="scroll-button left" on:click={scrollLeft}>←</button>
     {/if}
 
     <div
-        class="slider-container"
-        bind:this={sliderContainer}
-        onscroll={() => {
-            scrollPosition = sliderContainer.scrollLeft;
+        class="scroll-container"
+        bind:this={scrollContainer}
+        on:scroll={() => {
+            scrollPosition = scrollContainer.scrollLeft;
             updateArrows();
         }}
     >
-        {#each titles as title}
-            <TitleShortCard title={title} />
+        {#each titles as item}
+            <div class="card">
+                <TitleShortCard title={item}/>
+            </div>
         {/each}
     </div>
 
-    <!-- Right Arrow -->
     {#if showRightArrow && !isMobile}
-        <button class="arrow right" onclick={() => scrollRight()}>➡️</button>
+        <button class="scroll-button right" on:click={scrollRight}>→</button>
     {/if}
 </div>
