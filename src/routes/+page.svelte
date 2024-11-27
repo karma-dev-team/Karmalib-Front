@@ -108,6 +108,10 @@
         z-index: 1;
     }
 
+    .catalog-cards { 
+        display: flex;
+    }
+
     .scroll-button.left {
         left: 0;
     }
