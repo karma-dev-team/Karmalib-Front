@@ -5,22 +5,26 @@
 </script>
 
 <div class="card-main">
-    <img src={title.logo.path} alt={title.name} class="card-image" />
+    <img src={title.logo.path || title.logo.blob} alt={title.name} class="card-image" />
     <div class="card-content">
-        <p class="card-type">{title.type}</p>
+        <div class="card-first-line">
+            <p class="card-type">{title.type}</p>
+            <span class="card-rating">{title.rating} ★</span>
+        </div>
         <h3 class="card-title">{title.name}</h3>
-        <span class="card-rating">{title.rating} ★</span>
     </div>
 </div>
 
 <style>
-    
+    .card-first-line { 
+        display: flex; 
+        align-items: center;
+        gap: 5px;
+    }
+
     .card-main {
-        background-color: #2E303D;
         border-radius: 8px;
         width: 200px;
-        text-align: center;
-        margin: 0 10px;
     }
 
     .card-image {
@@ -36,17 +40,19 @@
     .card-type {
         font-size: 0.8rem;
         color: #B7B7B7;
-        margin-bottom: 5px;
+        margin: 0; 
     }
 
     .card-title {
         font-size: 1rem;
         font-weight: 500;
+        color: white;
         margin: 5px 0;
+        text-align: left;
     }
 
     .card-rating {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: #ffdd57;
     }
 
