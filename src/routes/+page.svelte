@@ -24,6 +24,7 @@
 
     .main-content {
         padding: 20px;
+        padding-top: 0; 
         min-height: 100vh;
         box-sizing: border-box;
     }
