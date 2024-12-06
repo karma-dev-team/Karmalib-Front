@@ -1,53 +1,43 @@
 <script lang="ts">
     import { onMount } from "svelte";
-	import TitleShortCard from "./TitleShortCard.svelte";
-	import type { TitleModel } from "$lib/models/TitleModel";
+    import TitleShortCard from "./TitleShortCard.svelte";
+    import type { TitleModel } from "$lib/models/TitleModel";
 
     export let titles: TitleModel[] = []; // Принимаем массив TitleModel
 
     let scrollContainer: HTMLDivElement;
-    let scrollPosition = 0;
-    let maxScroll = 0;
     let showLeftArrow = false;
     let showRightArrow = false;
     let isMobile = false;
 
     onMount(() => {
-        updateMaxScroll();
+        updateArrows();
 
         // Определение мобильности
         isMobile = window.innerWidth <= 768;
         window.addEventListener("resize", () => {
             isMobile = window.innerWidth <= 768;
-            updateMaxScroll();
+            updateArrows();
         });
     });
 
-    function updateMaxScroll() {
-        if (scrollContainer) {
-            maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-            updateArrows();
-        }
-    }
-
     function updateArrows() {
-        showLeftArrow = scrollPosition > 0;
-        showRightArrow = scrollPosition < maxScroll;
+        if (scrollContainer) {
+            const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
+            showLeftArrow = scrollLeft > 0;
+            showRightArrow = scrollLeft < scrollWidth - clientWidth;
+        }
     }
 
     function scrollLeft() {
         if (scrollContainer) {
             scrollContainer.scrollBy({ left: -200, behavior: "smooth" });
-            scrollPosition = Math.max(0, scrollPosition - 200);
-            updateArrows();
         }
     }
 
     function scrollRight() {
         if (scrollContainer) {
             scrollContainer.scrollBy({ left: 200, behavior: "smooth" });
-            scrollPosition = Math.min(maxScroll, scrollPosition + 200);
-            updateArrows();
         }
     }
 </script>
@@ -61,10 +51,12 @@
 
     .scroll-container {
         display: flex;
-        gap: 1rem;
-        overflow-x: auto;
+        gap: 10px;
         scroll-behavior: smooth;
-        padding: 1rem 0;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     .scroll-button {
@@ -97,6 +89,11 @@
         right: 0.5rem;
     }
 
+    .card { 
+        width: 5%;
+        min-width: 170px;
+    }
+
     @media (max-width: 768px) {
         .scroll-button {
             display: none;
@@ -112,14 +109,11 @@
     <div
         class="scroll-container"
         bind:this={scrollContainer}
-        on:scroll={() => {
-            scrollPosition = scrollContainer.scrollLeft;
-            updateArrows();
-        }}
+        on:scroll={updateArrows}
     >
         {#each titles as item}
             <div class="card">
-                <TitleShortCard title={item}/>
+                <TitleShortCard title={item} />
             </div>
         {/each}
     </div>

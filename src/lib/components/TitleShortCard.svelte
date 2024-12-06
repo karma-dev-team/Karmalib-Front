@@ -19,12 +19,11 @@
     .card-first-line { 
         display: flex; 
         align-items: center;
-        gap: 5px;
+        gap: 8px;
     }
 
     .card-main {
         border-radius: 8px;
-        width: 200px;
     }
 
     .card-image {
@@ -34,7 +33,7 @@
     }
 
     .card-content {
-        padding: 10px;
+        padding-left: 4px;
     }
 
     .card-type {

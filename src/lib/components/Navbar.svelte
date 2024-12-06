@@ -1,195 +1,209 @@
 <script lang="ts">
-    import logoImage from '$lib/images/KarmaLibLogo.png'
+    import logoImage from '$lib/images/KarmaLibLogo.png';
     import NavSearchbar from './NavSearchbar.svelte';
-    import notificationIcon from '$lib/images/NotificationIcon.svg'
-    import settingsIcon from '$lib/images/SettingsIcon.svg'
-    import burgerIcon from '$lib/images/BurgerIcon.svg'
-    import emailIcon from '$lib/images/EmailIcon.svg'
+    import notificationIcon from '$lib/images/NotificationIcon.svg';
+    import settingsIcon from '$lib/images/SettingsIcon.svg';
+    import burgerIcon from '$lib/images/BurgerIcon.svg';
+    import emailIcon from '$lib/images/EmailIcon.svg';
 
-    export let isAuthorized: boolean; 
+    export let isAuthorized: boolean;
 
-
-    function openEmailPopup() { 
-
+    function openEmailPopup() {
+        // Реализация попапа для Email
     }
 </script>
 
 <style>
-    .navbar-left { 
-        display: flex;
-    }
-
-    .navbar-news { 
-        color: #B7B7B7; 
-    }
-
-    .navbar-logo * { 
-        color: green; 
-        font-size: large;
-        cursor: pointer;
-    }
-
-    .navbar-header { 
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .navbar-right-bar, .navbar-header, .navbar-bottom { 
-        display: flex;
-    }
-
-    .navbar-right-bar { 
-        align-items: center;
-    }
-
-    .navbar-right { 
-        align-items: center;
-        display: flex;
-    }
-
-    .navbar-bottom { 
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    .navbar-left { 
-        display: flex;
-        align-items: center;
-    }
-
-    .navbar-category { 
-        color: #D9D9D9; 
-        cursor: pointer;
-        font-size: 14px; 
-    }
-
-    .navbar, .navbar-element { 
-        display: flex; 
-        align-items: center;    
-    }
-
-    .navbar-element { 
-        color: white; 
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-        margin: 0 15px; 
-        font-size: 16px; 
-        padding: 10px 12px 8px;
-        height: 100%;
-    }
-
-    .navbar-element:hover { 
-        border-bottom: 5px solid #1f2f95;
-    }
-
-    .navbar a { 
-        text-decoration: none;
-    }
-
+    /* Основной стиль навигации */
     .navbar {
+        display: flex;
         flex-direction: column;
-        padding: 12px 210px;
-        padding-bottom: 2px;
-        margin-left: auto;
-        margin-right: auto;
-        width: 100%; 
-        flex-wrap: wrap;
+        width: 100%;
         background-color: #2E303D;
+        color: white;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .headev-nav {
+        display: flex;
+        flex-direction: column;
+        padding: 0 16px;
+        height: 56px;
+        align-items: center;
         justify-content: space-between;
-        height: 100%;
     }
 
-    .open-button { 
-        border: none; 
-        background: none;
-        color: #B7B7B7; 
+    .navbar-header,
+    .navbar-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
     }
 
-    .navbar-send-mail { 
-        padding-left: 10px;
-        margin-left: 15px;  
-        border-left: 1px solid #b7b7b77b; 
+    /* Левая часть */
+    .navbar-category {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        cursor: pointer;
+        color: #D9D9D9;
+    }
+
+    .navbar-category img {
+        margin-right: 8px;
+        width: 16px;
+    }
+
+    /* Правая часть */
+    .navbar-right-bar {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-news {
+        color: #B7B7B7;
+        font-size: 14px;
+        margin-right: 20px;
         cursor: pointer;
     }
 
-    .open-button-icon { 
-        width: 18px;
+    .navbar-send-mail {
+        display: flex;
+        align-items: center;
+        border-left: 1px solid #b7b7b77b;
+        padding-left: 10px;
+        margin-left: 10px;
+        cursor: pointer;
+        color: #B7B7B7;
     }
 
-    .icon-button { 
-        padding-top: 5px;
+    .open-button {
+        border: none;
+        background: none;
+        font-size: 14px;
+        cursor: pointer;
+        margin-right: 6px;
+        color: #B7B7B7;
     }
-</style>  
 
-<header class="navbar"> 
-    <div class="navbar-header">
-        <div class="navbar-category">
-            <img src={burgerIcon} alt="">
-            СМОТРЕТЬ КАТЕГОРИИ
-        </div>
+    .open-button-icon {
+        width: 16px;
+    }
 
-        <div class="navbar-right-bar">
-            <a href="/forum/news" class="navbar-news">
-                Новости
-            </a>
-            <div class="navbar-send-mail">
-                <button class="open-button" on:click={openEmailPopup}>Email us</button>
-                <img src={emailIcon} alt="" class="open-button-icon">
+    /* Нижняя часть */
+    .navbar-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 56px;
+    }
+
+    .navbar-left {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-logo img {
+        width: 32px;
+        margin-right: 12px;
+    }
+
+    .navbar-element {
+        margin: 0 12px;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 8px 0;
+        transition: border-bottom 0.2s ease;
+    }
+
+    .navbar-element:hover {
+        border-bottom: 2px solid #1f2f95;
+    }
+
+    .navbar-right {
+        display: flex;
+        align-items: center;
+    }
+
+    .icon-button img {
+        width: 20px;
+        margin-left: 16px;
+        cursor: pointer;
+    }
+
+    .avatar-icon-container {
+        margin-left: 16px;
+        cursor: pointer;
+    }
+
+    .login-button {
+        color: #1f2f95;
+        text-decoration: none;
+        font-size: 14px;
+        margin-left: 16px;
+    }
+
+    .navbar-search-bar {
+        flex-grow: 1;
+        padding: 0 16px;
+    }
+</style>
+
+<header class="navbar">
+    <nav class="headev-nav">
+        <!-- Верхняя панель -->
+        <div class="navbar-header">
+            <div class="navbar-category">
+                <img src={burgerIcon} alt="Категории">
+                СМОТРЕТЬ КАТЕГОРИИ
             </div>
-        </div>
-    </div>
-    <div class="navbar-bottom">
-        <div class="navbar-left">
-            <div class="navbar-logo">
-                <img src={logoImage} alt=""/>
-            </div>
-            <div class="navbar-find-work navbar-element">
-                Найти работу
-            </div>
-            
-            <div class="navbar-my-work navbar-element">
-                Моя работа                  
-            </div>
-
-            <div class="navbar-element">
-                <a href="/title/top" class="login-button">Войти</a>
-                Финансы
-            </div>
-
-
-
-            <a href="/messages/chat" class="navbar-element">
-                Сообщения
-            </a>
-        </div>
-
-        <nav class="navbar-search-bar">
-            <NavSearchbar />
-        </nav>
-
-        <div class="navbar-right">
-            <div class="navbar-element">
-                Заладки
-            </div>
-
-            <div class="navbar-element icon-button">
-                <img src={notificationIcon} alt="">
-            </div>
-            
-            <div class="navbar-element icon-button">
-                <img src={settingsIcon} alt="">
-            </div>
-            
-            {#if isAuthorized}
-                <div class="avatar-icon-container">
-                    <img src="#" alt="" class="avatar-icon">
+            <div class="navbar-right-bar">
+                <a href="/forum/news" class="navbar-news">Новости</a>
+                <div class="navbar-send-mail">
+                    <button class="open-button" on:click={openEmailPopup}>Email us</button>
+                    <img src={emailIcon} alt="Email" class="open-button-icon">
                 </div>
-            {:else}
-                <a href="/auth/login" class="login-button">Войти</a>
-            {/if}
-
+            </div>
         </div>
-    </div>
-</header>
 
+        <!-- Нижняя панель -->
+        <div class="navbar-bottom">
+            <div class="navbar-left">
+                <div class="navbar-logo">
+                    <img src={logoImage} alt="Лого">
+                </div>
+                <div class="navbar-element">Найти работу</div>
+                <div class="navbar-element">Моя работа</div>
+                <div class="navbar-element">
+                    <a href="/title/top">Финансы</a>
+                </div>
+                <div class="navbar-element">Сообщения</div>
+            </div>
+            <div class="navbar-search-bar">
+                <NavSearchbar />
+            </div>
+            <div class="navbar-right">
+                <div class="navbar-element">Закладки</div>
+                <div class="icon-button">
+                    <img src={notificationIcon} alt="Уведомления">
+                </div>
+                <div class="icon-button">
+                    <img src={settingsIcon} alt="Настройки">
+                </div>
+                {#if isAuthorized}
+                    <div class="avatar-icon-container">
+                        <img src="#" alt="Аватар" class="avatar-icon">
+                    </div>
+                {:else}
+                    <a href="/auth/login" class="login-button">Войти</a>
+                {/if}
+            </div>
+        </div>
+    </nav>
+</header>

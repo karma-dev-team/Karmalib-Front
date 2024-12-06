@@ -38,8 +38,48 @@ export const load = (): { hotNewsItems: TitleModel[], popularItems: TitleModel[]
                 type: TitleTypes.Manxva,
                 logo: { path: "", blob: logoImage },
                 genre: "Фэнтези"
+            },
+            {
+                name: "Мне было предначертано...",
+                rating: "8.6",
+                type: TitleTypes.Manxva,
+                logo: { path: "", blob: logoImage },
+                genre: "Психология"
+            },
+            {
+                name: "Варвар с Сеульского вокзала",
+                rating: "9.2",
+                type: TitleTypes.Manxva,
+                logo: { path: "", blob: logoImage },
+                genre: "Фэнтези"
+            },
+            {
+                name: "Мне было предначертано...",
+                rating: "8.6",
+                type: TitleTypes.Manxva,
+                logo: { path: "", blob: logoImage },
+                genre: "Психология"
+            },
+            {
+                name: "Варвар с Сеульского вокзала",
+                rating: "9.2",
+                type: TitleTypes.Manxva,
+                logo: { path: "", blob: logoImage },
+                genre: "Фэнтези"
+            },            {
+                name: "Мне было предначертано...",
+                rating: "8.6",
+                type: TitleTypes.Manxva,
+                logo: { path: "", blob: logoImage },
+                genre: "Психология"
+            },
+            {
+                name: "Варвар с Сеульского вокзала",
+                rating: "9.2",
+                type: TitleTypes.Manxva,
+                logo: { path: "", blob: logoImage },
+                genre: "Фэнтези"
             }
-            // Добавьте другие элементы по аналогии
         ]
     };
 };
