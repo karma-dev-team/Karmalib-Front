@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import TitleShortCard from "./TitleShortCard.svelte";
     import type { TitleModel } from "$lib/models/TitleModel";
 
@@ -10,16 +10,8 @@
     let showRightArrow = false;
     let isMobile = false;
 
-    onMount(() => {
-        updateArrows();
-
-        // Определение мобильности
-        isMobile = window.innerWidth <= 768;
-        window.addEventListener("resize", () => {
-            isMobile = window.innerWidth <= 768;
-            updateArrows();
-        });
-    });
+    const SCROLL_AMOUNT = 200; // Расстояние прокрутки
+    const SCROLL_DURATION = 300; // Длительность в миллисекундах
 
     function updateArrows() {
         if (scrollContainer) {
@@ -29,17 +21,60 @@
         }
     }
 
-    function scrollLeft() {
+    function smoothScroll(targetScrollLeft: number) {
+        if (!scrollContainer) return;
+
+        const startScrollLeft = scrollContainer.scrollLeft;
+        const distance = targetScrollLeft - startScrollLeft;
+        const startTime = performance.now();
+
+        function animateScroll(currentTime: number) {
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(elapsedTime / SCROLL_DURATION, 1);
+
+            // Используем ease-in-out для плавности
+            const ease = progress < 0.5
+                ? 2 * progress * progress
+                : -1 + (4 - 2 * progress) * progress;
+
+            scrollContainer.scrollLeft = startScrollLeft + distance * ease;
+
+            if (progress < 1) {
+                requestAnimationFrame(animateScroll);
+            }
+        }
+
+        requestAnimationFrame(animateScroll);
+    }
+
+    function scroll(direction: "left" | "right") {
         if (scrollContainer) {
-            scrollContainer.scrollBy({ left: -200, behavior: "smooth" });
+            const targetScrollLeft =
+                direction === "left"
+                    ? scrollContainer.scrollLeft - SCROLL_AMOUNT
+                    : scrollContainer.scrollLeft + SCROLL_AMOUNT;
+
+            smoothScroll(targetScrollLeft);
         }
     }
 
-    function scrollRight() {
-        if (scrollContainer) {
-            scrollContainer.scrollBy({ left: 200, behavior: "smooth" });
-        }
-    }
+    onMount(() => {
+        const resizeHandler = () => {
+            isMobile = window.innerWidth <= 768;
+            updateArrows();
+        };
+
+        isMobile = window.innerWidth <= 768;
+        updateArrows();
+
+        window.addEventListener("resize", resizeHandler);
+        scrollContainer?.addEventListener("scroll", updateArrows);
+
+        onDestroy(() => {
+            window.removeEventListener("resize", resizeHandler);
+            scrollContainer?.removeEventListener("scroll", updateArrows);
+        });
+    });
 </script>
 
 <style>
@@ -52,10 +87,9 @@
     .scroll-container {
         display: flex;
         gap: 10px;
-        scroll-behavior: smooth;
         overflow-x: hidden;
+        -webkit-overflow-scrolling: touch; /* Для iOS плавности */
         width: 100%;
-        max-width: 100%;
         margin: 0 auto;
     }
 
@@ -103,13 +137,12 @@
 
 <div class="scroll-wrapper">
     {#if showLeftArrow && !isMobile}
-        <button class="scroll-button left" on:click={scrollLeft}>←</button>
+        <button class="scroll-button left" on:click={() => scroll("left")}>←</button>
     {/if}
 
     <div
         class="scroll-container"
         bind:this={scrollContainer}
-        on:scroll={updateArrows}
     >
         {#each titles as item}
             <div class="card">
@@ -119,6 +152,6 @@
     </div>
 
     {#if showRightArrow && !isMobile}
-        <button class="scroll-button right" on:click={scrollRight}>→</button>
+        <button class="scroll-button right" on:click={() => scroll("right")}>→</button>
     {/if}
 </div>
