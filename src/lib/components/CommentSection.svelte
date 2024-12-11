@@ -2,7 +2,6 @@
 	import type { CommentModel } from "$lib/models/CommentModel";
 	import type { UserModel } from "$lib/models/UserModel";
 	import { formatHumanReadableDate } from "$lib/utils/DatetimeFormtting";
-	import { v4 } from "uuid";
 
     let { comments, user }: { comments: CommentModel[], user: UserModel } = $props(); 
     
@@ -14,13 +13,13 @@
             comments = [
                 ...comments,
                 {
-                    id: v4(),
+                    id: "96fa22ff-13e3-4718-af05-008495069792",
                     author: user, 
                     text: newComment,
                     isSpoiler,
                     likes: 0,
                     dislikes: 0,
-                    createdAt: new Date(), 
+                    createdAt: new Date("2024-04-06T12:00:00Z"), 
                 },
             ];
             newComment = "";
@@ -129,7 +128,7 @@
         {#each comments as comment (comment.id)}
             <div class="comment">
                 <div class="author">{comment.author}</div>
-                <div class="timestamp">{formatHumanReadableDate(comment.createdAt.toDateString())}</div>
+                <div class="timestamp">{formatHumanReadableDate(comment.createdAt.toISOString())}</div>
                 <p class={comment.isSpoiler ? "spoiler" : ""}>
                     {comment.text}
                 </p>
