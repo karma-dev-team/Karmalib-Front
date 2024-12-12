@@ -1,5 +1,7 @@
 <script lang="ts">
 	import CommentSection from "$lib/components/CommentSection.svelte";
+	import PostTag from "$lib/components/PostTag.svelte";
+	import Reactions from "$lib/components/Reactions.svelte";
 	import type { PostModel } from "$lib/models/PostModel";
 	import type { UserModel } from "$lib/models/UserModel";
 	import { formatHumanReadableDate } from "$lib/utils/DatetimeFormtting";
@@ -25,12 +27,12 @@
             {post.text}
         </div>
         <div class="post-bottom">
-            <div class="post-reactions"></div>
+            <div class="post-reactions">
+                <Reactions likesAmount={100} selectedReaction={"Like"}/>
+            </div>
             <div class="post-tags">                                                            
                 {#each post.tags as tag}
-                    <div class="tag-name">
-                        #{tag.name}
-                    </div>
+                    <PostTag tag={tag}/>
                 {/each}
             </div>
         </div>
@@ -41,14 +43,19 @@
 </div>
 
 <style>
-    .tag-name { 
-        color: var(--text-secondary); 
-        padding: 8px 12px;
-        background-color: hsla(240, 4%, 49%, .07);
-    }
-
     .post-content { 
         color: var(--text-secondary);
+    }
+
+    .post-tags { 
+        display: flex;
+    }
+
+    .post-bottom { 
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .post-page { 

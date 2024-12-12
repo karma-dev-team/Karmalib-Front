@@ -20,6 +20,11 @@
 	color: var(--color-text);
 }
 
+button { 
+	border: none; 
+	background: none; 
+}
+
 body {
 	min-height: 100vh;
 	margin: 0;
