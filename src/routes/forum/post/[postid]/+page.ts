@@ -1,25 +1,29 @@
 // данные с этой функции можно вытащить из переменной data в +page.svelte 
 
 import { PostStatus } from '$lib/enums/PostTypes';
-import type { CommentModel } from '$lib/models/CommentModel';
 import type { PostModel } from '$lib/models/PostModel.js';
 import type { UserModel } from '$lib/models/UserModel';
 
 export function load({ params }): { user: UserModel, post: PostModel }{
 	return {
 		post: { 
-				id: "123e4567-e89b-12d3-a456-426614174000",
 				author: {
-					id: "789e1234-e56b-12d3-a456-426614174999",
 					username: "PostAuthor",
 					isStaff: false,
 					avatar: { 
 						name: "example.png",
 						size: 1024, // Размер в байтах
 						path: "example.com",
-
 					}
 				},
+				tags: [{ 
+					name: "Technology",
+					slug: "technology",
+					description: "Tags related to technology topics",
+					type: "CATEGORY",
+					isVisible: true,
+				}], 
+				createdAt: new Date("2024-04-10T16:00:00Z"), 
 				title: "Пример поста",
 				text: "Это текст примерного поста. Здесь может быть любая информация.",
 				likesCount: 42,
@@ -30,9 +34,8 @@ export function load({ params }): { user: UserModel, post: PostModel }{
 				approvedById: "456e7890-e12b-12d3-a456-426614174555",
 				comments: [
 				{
-					id: "1",
+					id: "1", 
 					author: {
-						id: "101",
 						username: "User1",
 						isStaff: false,
 					},
@@ -47,9 +50,8 @@ export function load({ params }): { user: UserModel, post: PostModel }{
 					pinned: false,
 				},
 				{
-					id: "2",
+					id: "2", 
 					author: {
-						id: "102",
 						username: "User2",
 						isStaff: false,
 					},
@@ -64,9 +66,8 @@ export function load({ params }): { user: UserModel, post: PostModel }{
 					pinned: false,
 				},
 				{
-					id: "3",
+					id: "3", 
 					author: {
-						id: "103",
 						username: "Admin",
 						isStaff: true,
 					},
@@ -95,7 +96,6 @@ export function load({ params }): { user: UserModel, post: PostModel }{
 			],
 		},
 		user: {
-			id: "103",
 			username: "Admin",
 			isStaff: true,
 		},

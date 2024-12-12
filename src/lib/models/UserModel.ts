@@ -2,7 +2,6 @@ import type { UserRole } from "$lib/enums/UserRole";
 import type { FileModel } from "./FileModel";
 
 export interface UserModel {
-    id: string; // ID of the user
     username: string; // Unique username
     publicUsername?: string; // Optional public username
     email?: string; // Optional email

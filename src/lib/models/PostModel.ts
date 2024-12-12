@@ -1,10 +1,10 @@
 import type { PostStatus } from "$lib/enums/PostTypes";
 import type { CommentModel } from "./CommentModel";
 import type { FileModel } from "./FileModel";
+import type { PostTagModel } from "./PostTagModel";
 import type { UserModel } from "./UserModel";
 
 export interface PostModel {
-    id: string; // UUID of the post
     author: UserModel; // UUID of the user who created the post
     title: string; // Title of the post
     text: string; // Content of the post
@@ -16,4 +16,6 @@ export interface PostModel {
     approvedById?: string; // UUID of the user who approved the post (optional)
     comments: CommentModel[]; // List of comments
     attachments?: FileModel[]; // Set of attached files
+    tags: PostTagModel[]; 
+    createdAt: Date; 
 }

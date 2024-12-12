@@ -1,7 +1,7 @@
 import type { UserModel } from "./UserModel";
 
 export interface CommentModel {
-    id: string; // ID of the comment
+    id: string; 
     author: UserModel; // The author of the comment
     text: string; // The text of the comment
     isDeleted?: boolean; // Optional; defaults to `false`

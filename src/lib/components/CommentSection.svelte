@@ -126,8 +126,8 @@
     <!-- Comments list -->
     <div class="comments-list">
         {#each comments as comment (comment.id)}
-            <div class="comment">
-                <div class="author">{comment.author}</div>
+            <div class="comment" id={comment.id}>
+                <div class="author">{comment.author.publicUsername || comment.author.username}</div>
                 <div class="timestamp">{formatHumanReadableDate(comment.createdAt.toISOString())}</div>
                 <p class={comment.isSpoiler ? "spoiler" : ""}>
                     {comment.text}
