@@ -15,6 +15,7 @@
 	--disabled: hsla(0, 0%, 100%, .38);
 	--text-secondary: hsla(0, 0%, 100%, .64);
 	--column-margin-top: 4rem;
+	--primary: #1976d2;
 	font-family: var(--font-body);
 	color: var(--color-text);
 }
