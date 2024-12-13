@@ -1,7 +1,11 @@
 <script lang="ts">
-	import type { CommentModel } from "$lib/models/CommentModel";
-	import type { UserModel } from "$lib/models/UserModel";
-	import { formatHumanReadableDate } from "$lib/utils/DatetimeFormtting";
+    import type { CommentModel } from "$lib/models/CommentModel";
+    import type { UserModel } from "$lib/models/UserModel";
+    import { formatHumanReadableDate } from "$lib/utils/DatetimeFormtting";
+
+    // Импорт иконок для лайков и дизлайков
+    import likeIcon from "$lib/images/likeIcon.svg";
+    import dislikeIcon from "$lib/images/dislikeIcon.svg";
 
     let { comments, user }: { comments: CommentModel[], user: UserModel } = $props(); 
     
@@ -13,13 +17,13 @@
             comments = [
                 ...comments,
                 {
-                    id: "96fa22ff-13e3-4718-af05-008495069792",
+                    id: crypto.randomUUID(),
                     author: user, 
                     text: newComment,
                     isSpoiler,
                     likes: 0,
                     dislikes: 0,
-                    createdAt: new Date("2024-04-06T12:00:00Z"), 
+                    createdAt: new Date(),
                 },
             ];
             newComment = "";
@@ -27,17 +31,17 @@
         }
     };
 
-    const deleteComment = (id: String) => {
+    const deleteComment = (id: string) => {
         comments = comments.filter((comment) => comment.id !== id);
     };
 
-    const likeComment = (id: String) => {
+    const likeComment = (id: string) => {
         comments = comments.map((comment) =>
             comment.id === id ? { ...comment, likes: comment.likes + 1 } : comment
         );
     };
 
-    const dislikeComment = (id: String) => {
+    const dislikeComment = (id: string) => {
         comments = comments.map((comment) =>
             comment.id === id ? { ...comment, dislikes: comment.dislikes + 1 } : comment
         );
@@ -45,67 +49,112 @@
 </script>
 
 <style>
+    :root {
+        --text-primary: #ffffff; /* Основной цвет текста */
+        --background-input: #3c3c3c; /* Фон для ввода */
+        --border-color: #555; /* Цвет границы для ввода */
+    }
+
     .comment-section {
-        background: #1e1e1e;
-        color: #fff;
-        padding: 1rem;
-        border-radius: 8px;
+        padding: 0.5rem;
+        font-family: Arial, sans-serif;
     }
 
     .comment-input {
         display: flex;
         flex-direction: column;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
     }
 
     .comment-input textarea {
         width: 100%;
-        background: #2e2e2e;
-        color: #fff;
+        background: var(--background-input);
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 0.4rem;
+        font-size: 0.9rem;
+        resize: none;
+    }
+
+    .comment-input label {
+        display: flex;
+        align-items: center;
+        margin: 0.4rem 0;
+        font-size: 0.8rem;
+        color: var(--text-primary);
+    }
+
+    .comment-input button {
+        align-self: flex-start;
+        background: #007bff;
+        color: var(--text-primary);
         border: none;
-        border-radius: 5px;
-        padding: 0.5rem;
+        border-radius: 4px;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
+
+    .comment-input button:hover {
+        background: #0056b3;
     }
 
     .comments-list {
-        margin-top: 1rem;
+        font-size: 0.9rem;
     }
 
     .comment {
-        border-bottom: 1px solid #444;
-        padding: 0.5rem 0;
-        position: relative;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid var(--border-color);
+        font-size: 0.9rem;
     }
 
     .comment .author {
         font-weight: bold;
+        color: var(--text-primary);
     }
 
     .comment .timestamp {
-        font-size: 0.8rem;
-        color: #888;
+        font-size: 0.75rem;
+        color: #bbb;
+        margin-left: 0.5rem;
+    }
+
+    .comment p {
+        margin: 0.4rem 0;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+    }
+
+    .comment .spoiler {
+        color: #aaa;
+        font-style: italic;
     }
 
     .comment-actions {
         display: flex;
-        gap: 1rem;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        margin-top: 0.2rem;
+        align-items: center;
     }
 
-    .comment-actions button {
-        background: none;
-        border: none;
-        color: #fff;
+    .comment-actions img {
+        width: 16px;
+        height: 16px;
         cursor: pointer;
+        filter: invert(100%); /* Делает svg белым */
+    }
+
+    .comment-actions img:hover {
+        opacity: 0.8;
     }
 
     .delete-btn {
-        color: #ff4d4d;
+        color: #dc3545;
+        font-size: 0.8rem;
         cursor: pointer;
-    }
-
-    .spoiler {
-        color: #888;
-        font-style: italic;
     }
 </style>
 
@@ -127,22 +176,20 @@
     <div class="comments-list">
         {#each comments as comment (comment.id)}
             <div class="comment" id={comment.id}>
-                <div class="author">{comment.author.publicUsername || comment.author.username}</div>
-                <div class="timestamp">{formatHumanReadableDate(comment.createdAt.toISOString())}</div>
+                <div>
+                    <span class="author">{comment.author.publicUsername || comment.author.username}</span>
+                    <span class="timestamp">{formatHumanReadableDate(comment.createdAt.toISOString())}</span>
+                </div>
                 <p class={comment.isSpoiler ? "spoiler" : ""}>
                     {comment.text}
                 </p>
                 <div class="comment-actions">
-                    <button onclick={() => likeComment(comment.id)}>
-                        👍 {comment.likes}
-                    </button>
-                    <button onclick={() => dislikeComment(comment.id)}>
-                        👎 {comment.dislikes}
-                    </button>
+                    <img src={likeIcon} alt="Like" onclick={() => likeComment(comment.id)} />
+                    <span>{comment.likes}</span>
+                    <img src={dislikeIcon} alt="Dislike" onclick={() => dislikeComment(comment.id)} />
+                    <span>{comment.dislikes}</span>
                     {#if user.isStaff}
-                        <button class="delete-btn" onclick={() => deleteComment(comment.id)}>
-                            🗑 Удалить
-                        </button>
+                        <span class="delete-btn" onclick={() => deleteComment(comment.id)}>Удалить</span>
                     {/if}
                 </div>
             </div>

@@ -6,8 +6,8 @@
 	import type { UserModel } from "$lib/models/UserModel";
 	import { formatHumanReadableDate } from "$lib/utils/DatetimeFormtting";
 
-    export let data: { user: UserModel, post: PostModel }
-    let { user, post } = data; 
+    let { data } = $props(); 
+    let { user, post }: { user: UserModel, post: PostModel } = data; 
 </script>
 
 <div class="post-page">
@@ -26,6 +26,22 @@
         <div class="post-content">
             {post.text}
         </div>
+        <div class="post-files">
+            {#if post.attachments !== null || post.attachments !== undefined}
+                {#each post.attachments as attachment}
+                    <div class="attachment-container">
+                        <img src={attachment.blob || attachment.path} alt={attachment.name} class="attachment-cover"/>
+                        <div class="image-container">
+                            <img 
+                                src={attachment.blob || attachment.path} alt={attachment.name} 
+                                class="image-image" 
+                                aria-label="главная картинка поста"
+                            />
+                        </div>
+                    </div>
+                {/each}
+            {/if}
+        </div>
         <div class="post-bottom">
             <div class="post-reactions">
                 <Reactions likesAmount={100} selectedReaction={"Like"}/>
@@ -43,6 +59,69 @@
 </div>
 
 <style>
+    .image-image { 
+        margin: 0 auto !important;
+        background-repeat: no-repeat;
+        z-index: 1;
+        display: flex;
+        -webkit-backdrop-filter: blur(50px);
+        backdrop-filter: blur(50px);
+        width: auto !important;
+        height: 100%;
+        transition: opacity .15s ease-in;
+    }
+
+    .image-container { 
+        margin: 0 auto !important;
+        background-repeat: no-repeat;
+        z-index: 1;
+        display: flex;
+        -webkit-backdrop-filter: blur(50px);
+        backdrop-filter: blur(50px);
+        width: auto !important;
+        height: 100%;
+    }
+    
+    .attachment-cover { 
+        width: 100%;
+        height: 100%;
+        top: 0;
+        transition: all 300ms ease-in-out;
+        left: 0;
+        position: absolute;
+        backdrop-filter: blur(50px);
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 15px;
+        filter: blur(40px) !important;
+    }
+
+    .post-files { 
+        display: flex;
+        gap: 1rem; 
+    }
+
+    .attachment-container { 
+        transition: all 1s ease-in-out;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer; 
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        z-index: 0;
+        border-radius: 10px !important;
+        min-height: 292px;
+        position: relative;
+        width: 100%;
+        border-radius: 10px !important;
+    }
+
+    .attachment-container:hover .attachment-cover {
+        transition: all .5s ease-in;
+        filter: blur(14px) !important;
+    }
+
     .post-content { 
         color: var(--text-secondary);
     }

@@ -15,7 +15,7 @@ export interface PostModel {
     hidden?: boolean; // Indicates if the post is hidden
     approvedById?: string; // UUID of the user who approved the post (optional)
     comments: CommentModel[]; // List of comments
-    attachments?: FileModel[]; // Set of attached files
+    attachments: FileModel[]; // Set of attached files
     tags: PostTagModel[]; 
     createdAt: Date; 
 }

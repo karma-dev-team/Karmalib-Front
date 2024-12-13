@@ -3,6 +3,7 @@
 import { PostStatus } from '$lib/enums/PostTypes';
 import type { PostModel } from '$lib/models/PostModel.js';
 import type { UserModel } from '$lib/models/UserModel';
+import Karmalib from '$lib/images/KarmaLibLogo.png'
 
 export function load({ params }): { user: UserModel, post: PostModel }{
 	return {
@@ -87,11 +88,13 @@ export function load({ params }): { user: UserModel, post: PostModel }{
 					name: "example.png",
 					size: 1024, // Размер в байтах
 					path: "example.com",
+					blob: Karmalib
 				},
 				{
 					name: "document.pdf",
 					size: 2048,
 					path: "example.com",
+					blob: Karmalib
 				},
 			],
 		},

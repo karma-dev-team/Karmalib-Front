@@ -40,13 +40,13 @@
     .reactions-container {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 8px;
     }
 
     .like-button, .dislike-button {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.2rem;
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -57,22 +57,18 @@
         transform: scale(1.1);
     }
 
-    .like-button span, .dislike-button span {
-        font-size: 0.75rem;
+    .like-button span {
+        font-size: 0.69rem;
         font-weight: bold;
     }
 
     .like-button, .dislike-button {
         color: #ffffff;
     }
-
-    .like-button.active, .dislike-button.active {
-        color: #007bff; /* Light blue for active state */
-    }
 </style>
 
 <div class="reactions-container">
-    <button class="like-button {isLiked ? 'active' : ''}" on:click={() => handleReaction('Like')}>
+    <button class="like-button" onclick={() => handleReaction('Like')}>
         <svg xmlns="http://www.w3.org/2000/svg" 
             fill="{isLiked ? '#007bff' : 'currentColor'}" 
             height="16" 
@@ -84,7 +80,7 @@
         <span>{likesAmount}</span>
     </button>
 
-    <button class="dislike-button {isDisliked ? 'active' : ''}" on:click={() => handleReaction('Dislike')}>
+    <button class="dislike-button" aria-label="2" onclick={() => handleReaction('Dislike')}>
         <svg xmlns="http://www.w3.org/2000/svg" 
             fill="{isDisliked ? '#007bff' : 'currentColor'}" 
             height="16" 
@@ -93,6 +89,5 @@
             <path d="M0 0h24v24H0z" fill="none"/>
             <path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/>
         </svg>
-        <span>{dislikeAmount}</span>
     </button>
 </div>
