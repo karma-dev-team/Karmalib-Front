@@ -6,6 +6,7 @@
     // Импорт иконок для лайков и дизлайков
     import likeIcon from "$lib/images/likeIcon.svg";
     import dislikeIcon from "$lib/images/dislikeIcon.svg";
+	import Reactions from "./Reactions.svelte";
 
     let { comments, user }: { comments: CommentModel[], user: UserModel } = $props(); 
     
@@ -106,7 +107,7 @@
 
     .comment {
         padding: 0.4rem 0;
-        border-bottom: 1px solid var(--border-color);
+        border-top: 1px solid var(--border-color);
         font-size: 0.9rem;
     }
 
@@ -140,15 +141,8 @@
         align-items: center;
     }
 
-    .comment-actions img {
-        width: 16px;
-        height: 16px;
-        cursor: pointer;
-        filter: invert(100%); /* Делает svg белым */
-    }
-
-    .comment-actions img:hover {
-        opacity: 0.8;
+    .comment-actions span { 
+        color: var(--text-primary); 
     }
 
     .delete-btn {
@@ -184,10 +178,7 @@
                     {comment.text}
                 </p>
                 <div class="comment-actions">
-                    <img src={likeIcon} alt="Like" onclick={() => likeComment(comment.id)} />
-                    <span>{comment.likes}</span>
-                    <img src={dislikeIcon} alt="Dislike" onclick={() => dislikeComment(comment.id)} />
-                    <span>{comment.dislikes}</span>
+                    <Reactions selectedReaction={null}/>
                     {#if user.isStaff}
                         <span class="delete-btn" onclick={() => deleteComment(comment.id)}>Удалить</span>
                     {/if}
