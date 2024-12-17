@@ -1,7 +1,9 @@
 <script lang="ts">
-	import { load } from './+page';
-	let { popularItems } = load();
+	import type { TitleModel } from '$lib/models/TitleModel.ts';
 
+	export let data:  { hotNewsItems: TitleModel[], popularItems: TitleModel[] }
+	let { popularItems, hotNewsItems }:  { hotNewsItems: TitleModel[], popularItems: TitleModel[] }  = data;
+	console.log(hotNewsItems)
 	let filters = [
 		'Все',
 		'Понравится леди',
