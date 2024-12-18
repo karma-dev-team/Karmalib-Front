@@ -46,6 +46,7 @@
 		"@friendofsvelte/tipex": "^0.0.7-up-6",
 		"@types/uuid": "^10.0.0",
 		"date-fns": "^4.1.0",
-		"karmalib": "file:"
+		"karmalib": "file:",
+		"svelte-quill": "^1.2.0"
 	}
 }

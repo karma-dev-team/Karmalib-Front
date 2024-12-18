@@ -13,28 +13,32 @@ export const load = (): { hotNewsItems: TitleModel[], popularItems: TitleModel[]
 				rating: "9.5",
 				type: TitleTypes.Manxva,
 				logo: { path: "", blob: logoImage },
-				genre: "Фэнтези"
+				genres: ["Фэнтези"],
+				tags: ["Лолкек"], 
 			},
 			{
 				name: "Выживание в Апокалипсисе",
 				rating: "8.5",
 				type: TitleTypes.Manxva,
 				logo: { path: "", blob: logoImage },
-				genre: "Экшен"
+				genres: ["Фэнтези"],
+				tags: ["Лолкек"], 
 			},
 			{
 				name: "Мне было предначертано...",
 				rating: "8.6",
 				type: TitleTypes.Manxva,
 				logo: { path: "", blob: logoImage },
-				genre: "Психология"
+				genres: ["Фэнтези"],
+				tags: ["Лолкек"], 
 			},
 			{
 				name: "Варвар с Сеульского вокзала",
 				rating: "9.2",
 				type: TitleTypes.Manxva,
 				logo: { path: "", blob: logoImage },
-				genre: "Фэнтези"
+				genres: ["Фэнтези"],
+				tags: ["Лолкек"], 
 			}
 			// Добавьте другие элементы по аналогии
 		],
@@ -44,14 +48,16 @@ export const load = (): { hotNewsItems: TitleModel[], popularItems: TitleModel[]
 				rating: "8.6",
 				type: TitleTypes.Manxva,
 				logo: { path: "", blob: logoImage },
-				genre: "Психология"
+				genres: ["Фэнтези"],
+				tags: ["Лолкек"], 
 			},
 			{
 				name: "Варвар с Сеульского вокзала",
 				rating: "9.2",
 				type: TitleTypes.Manxva,
 				logo: { path: "", blob: logoImage },
-				genre: "Фэнтези"
+				genres: ["Фэнтези"],
+				tags: ["Лолкек"], 
 			}
 			// Добавьте другие элементы по аналогии
 		]
