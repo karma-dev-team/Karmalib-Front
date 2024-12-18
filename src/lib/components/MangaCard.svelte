@@ -2,8 +2,6 @@
 	import type { TitleModel } from '$lib/models/TitleModel';
 
 	export let item: TitleModel;
-
-	{@debug item}
 </script>
 
 <div class="manga-card">
