@@ -16,6 +16,8 @@
 	--text-secondary: hsla(0, 0%, 100%, .64);
 	--column-margin-top: 4rem;
 	--primary: #1976d2;
+	--bg-secondary: #171717; 
+	--bg-input: #222228; 
 	font-family: var(--font-body);
 	color: var(--color-text);
 }
