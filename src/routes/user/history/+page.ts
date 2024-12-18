@@ -3,7 +3,7 @@
  */
 export async function load() {
 	try {
-	  const response = await fetch('/api/stories'); // Замените на реальный эндпоинт API
+	  const response = await fetch('/api/stories'); // Заменить на реальный API
 	  if (!response.ok) {
 		throw new Error('Не удалось загрузить данные историй');
 	  }
