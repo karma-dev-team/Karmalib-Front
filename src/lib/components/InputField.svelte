@@ -10,6 +10,7 @@
 		label?: string;                     // Название поля
 		options?: Option[];                 // Опции для select
 		value?: string | number;            // Привязанное значение
+		placeholder?: string;  
 	}
 
 	// Получаем параметры с типизацией
@@ -17,7 +18,8 @@
 		type = 'text',
 		label = '',
 		options = [],
-		value = $bindable('')
+		value = $bindable(''),
+		placeholder = ''  
 	}: Props = $props();
 </script>
 
@@ -32,7 +34,7 @@
 			{/each}
 		</select>
 	{:else}
-		<input type={type} bind:value={value} />
+		<input type={type} bind:value={value} placeholder={placeholder}/>
 	{/if}
 </div>
 

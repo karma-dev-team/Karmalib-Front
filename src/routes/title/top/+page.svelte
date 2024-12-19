@@ -1,10 +1,10 @@
 <script lang="ts">
     import InputField from '$lib/components/InputField.svelte'; // Ваш компонент для полей ввода
     import { onMount } from 'svelte';
-    import Quill from 'quill';
-    import 'quill/dist/quill.snow.css';
 	import { TitleStatus } from '$lib/enums/TitleStatus';
 	import { TranslationStatus } from '$lib/enums/TranslationStatus';
+	import { TitleTypes } from '$lib/enums/TitleTypes';
+	import { Tipex } from '@friendofsvelte/tipex';
 
 
     // Поля формы
@@ -25,13 +25,6 @@
     let resourceLinks = [''];
     let translator = '';
     let moderatorMessage = '';
-
-    // Инициализация Quill
-    let quillEditor;
-    onMount(() => {
-        const editorContainer = document.getElementById('editor');
-        quillEditor = new Quill(editorContainer, { theme: 'snow' });
-    });
 
     // Добавление новых ссылок
     function addResourceLink() {
@@ -55,7 +48,9 @@
     <!-- Описание -->
     <div class="form-section">
         <h3>Описание</h3>
-        <div id="editor" class="editor"></div>
+        <Tipex body={description} controls floating focal
+            style="margin-top: 1rem; margin-bottom: 0;" 
+            class="h-[70vh] border border-neutral-200"/>
     </div>
 
     <!-- Поля для выбора -->

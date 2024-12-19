@@ -204,9 +204,9 @@
                 <div class="navbar-logo">
                     <img src={logoImage} alt="Лого">
                 </div>
-                <a href="/job/search" class="navbar-element">Каталог</a>
-                <a href="/job/my" class="navbar-element">Топы</a>
-                <a href="/title/top" class="navbar-element">Форум</a>
+                <a href="/job/search" class="navbar-element"><p>Каталог</p></a>
+                <a href="/job/my" class="navbar-element"><p>Топы</p></a>
+                <a href="/title/top" class="navbar-element"><p>Форум</p></a>
             </div>
             <div class="navbar-search-bar">
                 <NavSearchbar />
