@@ -16,7 +16,7 @@
 	let genres = '';
 	let moderatorMessage = '';
 
-	// Переменные для третьего блока
+	// Переменные для третьего блокафывцвывц
 	let links = [''];
 	let translator = '';
 
