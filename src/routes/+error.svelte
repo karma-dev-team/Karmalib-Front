@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 import { page } from '$app/stores';
 </script>
 
@@ -7,7 +8,7 @@ import { page } from '$app/stores';
         <div class="body-404-da">
             <h1 class="text-404 header-error">404</h1>
             <h2 class="text-404">Страница не найдена</h2>
-            <button class="" tabindex="0" type="button"><span class="">Вернуться назад</span></button>
+            <button class="" tabindex="0" type="button" onclick={() => goto("/")}><span class="">Вернуться назад</span></button>
         </div>
     {/if}
 </div>
@@ -18,6 +19,9 @@ import { page } from '$app/stores';
         justify-content: center;
     }
 
+    .body-404-da button { 
+        cursor: pointer;
+    }
 
     .header-error { 
         font-size: 96px;
@@ -30,11 +34,13 @@ import { page } from '$app/stores';
     .body-404-da {
         display: flex;
         justify-content: center;
+        margin-top: 2rem; 
         flex-direction: column;
     }
 
     .text-404 {
         color: beige;
+        margin-bottom: 5px;
     }
 
     .body-404 button span {
