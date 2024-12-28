@@ -1,5 +1,5 @@
 export enum PostStatus {
-    DRAFT = 'DDraft',
-    PUBLISHED = 'Published',
-    ARCHIVED = 'Archived',
+    Draft = 'Draft',
+    Published = 'Published',
+    Archived = 'Archived',
 }

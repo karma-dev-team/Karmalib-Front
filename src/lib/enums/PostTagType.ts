@@ -1,1 +1,5 @@
-export type PostTagType = "CATEGORY" | "TOPIC" | "LABEL"; 
+export enum PostTagType { 
+    Category = "Category", 
+    Topic = "Topic", 
+    Label = "Label"
+}; 

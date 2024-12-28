@@ -4,6 +4,7 @@ import { PostStatus } from '$lib/enums/PostTypes';
 import type { PostModel } from '$lib/models/PostModel.js';
 import type { UserModel } from '$lib/models/UserModel';
 import Karmalib from '$lib/images/KarmaLibLogo.png'
+import { PostTagType } from '$lib/enums/PostTagType.js';
 
 export function load({ params }): { user: UserModel, post: PostModel }{
 	return {
@@ -21,7 +22,7 @@ export function load({ params }): { user: UserModel, post: PostModel }{
 					name: "Technology",
 					slug: "technology",
 					description: "Tags related to technology topics",
-					type: "CATEGORY",
+					type: PostTagType.Category,
 					isVisible: true,
 				}], 
 				createdAt: new Date("2024-04-10T16:00:00Z"), 
@@ -29,7 +30,7 @@ export function load({ params }): { user: UserModel, post: PostModel }{
 				text: "Это текст примерного поста. Здесь может быть любая информация.",
 				likesCount: 42,
 				dislikesCount: 7,
-				status: PostStatus.PUBLISHED,
+				status: PostStatus.Published,
 				pinned: true,
 				hidden: false,
 				approvedById: "456e7890-e12b-12d3-a456-426614174555",
