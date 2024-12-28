@@ -1,28 +1,28 @@
 <script lang="ts">
-import { onMount } from 'svelte';
-let message = "";
+    import { onMount } from 'svelte';
+    let message = "";
 
-const handleLogout = async () => {
-    try {
-    const response = await fetch('/api/logout', {
-        method: 'POST',
-        credentials: 'include',
+    const handleLogout = async () => {
+        try {
+        const response = await fetch('/api/logout', {
+            method: 'POST',
+            credentials: 'include',
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ошибка при выходе из системы');
+        }
+
+        message = "Вы успешно вышли из системы.";
+        } catch (error) {
+        message = error instanceof Error ? error.message : 'Произошла неизвестная ошибка';
+        }
+    };
+
+    onMount(() => {
+        handleLogout();
     });
-
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Ошибка при выходе из системы');
-    }
-
-    message = "Вы успешно вышли из системы.";
-    } catch (error) {
-    message = error instanceof Error ? error.message : 'Произошла неизвестная ошибка';
-    }
-};
-
-onMount(() => {
-    handleLogout();
-});
 </script>
 
 <style>

@@ -17,15 +17,17 @@ export const load = async ({ url }): Promise<{
 			name: 'Таинственная деревня',
 			rating: '9.5',
 			type: TitleTypes.Manxva,
-			genre: 'Фэнтези',
-			logo: { path: '', blob: '' },
+			genres: [{'name': 'Фэнтези'}],
+			tags: [], 
+			coverImage: { path: '', blob: '' },
 		},
 		{
 			name: 'Выживание в Апокалипсисе',
 			rating: '8.5',
 			type: TitleTypes.Manxva,
-			genre: 'Экшен',
-			logo: { path: '', blob: '' },
+			genres: [{'name': 'Экшен'}],
+			tags: [], 
+			coverImage: { path: '', blob: '' },
 		},
 	];
 

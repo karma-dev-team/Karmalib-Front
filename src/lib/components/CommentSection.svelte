@@ -2,11 +2,7 @@
     import type { CommentModel } from "$lib/models/CommentModel";
     import type { UserModel } from "$lib/models/UserModel";
     import { formatHumanReadableDate } from "$lib/utils/DatetimeFormtting";
-
-    // Импорт иконок для лайков и дизлайков
-    import likeIcon from "$lib/images/likeIcon.svg";
-    import dislikeIcon from "$lib/images/dislikeIcon.svg";
-	import Reactions from "./Reactions.svelte";
+    import Reactions from "$lib/components/Reactions.svelte"
 
     let { comments, user }: { comments: CommentModel[], user: UserModel } = $props(); 
     

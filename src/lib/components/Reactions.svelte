@@ -3,7 +3,7 @@
 
     export let likesAmount = 0;
     export let dislikeAmount = 0;
-    export let selectedReaction: ReactionTypes; 
+    export let selectedReaction: ReactionTypes | null; 
     let isLiked = selectedReaction === "Like";
     let isDisliked = selectedReaction === "Dislike";
 

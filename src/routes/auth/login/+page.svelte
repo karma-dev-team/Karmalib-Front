@@ -1,32 +1,32 @@
 <script lang="ts">
-let email = "";
-let password = "";
-let errorMessage = "";
-let successMessage = "";
+    let email = "";
+    let password = "";
+    let errorMessage = "";
+    let successMessage = "";
 
-const handleLogin = async () => {
-    errorMessage = "";
-    successMessage = "";
+    const handleLogin = async () => {
+        errorMessage = "";
+        successMessage = "";
 
-    try {
-    const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    });
+        try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Ошибка входа');
-    }
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Ошибка входа');
+        }
 
-    successMessage = "Вход выполнен успешно!";
-    email = "";
-    password = "";
-    } catch (error) {
-    errorMessage = error instanceof Error ? error.message : 'Произошла неизвестная ошибка';
-    }
-};
+        successMessage = "Вход выполнен успешно!";
+        email = "";
+        password = "";
+        } catch (error) {
+        errorMessage = error instanceof Error ? error.message : 'Произошла неизвестная ошибка';
+        }
+    };
 </script>
 
 <style>

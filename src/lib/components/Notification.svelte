@@ -3,8 +3,8 @@
 
     export let notifications: NotificationModel[] = [];
 
-    const hasTitleEntity = (notification: NotificationModel) => !!notification.titleEntity;
-    const hasComment = (notification: NotificationModel) => !!notification.comment;
+    const hasTitleEntity = (notification: NotificationModel) => !notification.titleEntity;
+    const hasComment = (notification: NotificationModel) => !notification.comment;
 </script>
 
 <style>
@@ -56,7 +56,7 @@
         <div class="notification {notification.read ? '' : 'unread'}">
             <!-- If titleEntity exists, show its logo -->
             {#if hasTitleEntity(notification)}
-                <img src={notification.titleEntity?.logo.path} alt="Title Logo" />
+                <img src={notification.titleEntity?.coverImage.path} alt="Title Logo" />
             {/if}
 
             <!-- If comment exists, show author's avatar (placeholder in this example) -->

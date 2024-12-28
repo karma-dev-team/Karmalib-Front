@@ -2,11 +2,11 @@
 	import type { TitleModel } from '$lib/models/TitleModel';
 
 	export let results: {
-		titles: TitleModel[];
-		characters: { name: string; description: string }[];
-		authors: { name: string; bio: string }[];
-		teams: { name: string; members: number }[];
-	};
+		titles: TitleModel[]
+		characters: { name: string; description: string }[]
+		authors: { name: string; bio: string }[]
+		teams: { name: string; members: number }[]
+	}
 
 	console.log('Results:', results);
 </script>
@@ -48,9 +48,9 @@
 	<div class="results-list">
 		{#each results.titles as title}
 			<div class="result-item">
-				<img src={title.logo.blob} alt={title.name} />
+				<img src={title.coverImage.blob} alt={title.name} />
 				<p>{title.name}</p>
-				<p>{title.type} | {title.genre}</p>
+				<p>{title.type} | {title.genres.map(model => model.name).join(" ")}</p>
 				<p>⭐ {title.rating}</p>
 			</div>
 		{/each}

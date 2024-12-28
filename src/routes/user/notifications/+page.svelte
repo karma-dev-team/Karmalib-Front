@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { NotificationsTypes } from "$lib/enums/NotificationsTypes";
+	import type { NotificationModel } from "$lib/models/NotificationModel";
 
-    let data: { notifications: NotificationModel[] } = $props(); 
+    let { notifications }: { notifications: NotificationModel[] } = $props(); 
 
     let notificationsTypes = Object.keys(NotificationsTypes); 
     let currentType: NotificationsTypes = $state(NotificationsTypes.All); 
@@ -31,11 +32,12 @@
         {/each}
     </div>
     <div class="notifications-list">
-        {#each notifications as notification, i}
+        {#each notifications as notif, i}
         <div class="notification-container">
             <div class="notification-image">
-                <img src={notification.} alt="">
+                <img src={notif.titleEntity?.coverImage.path || notif.titleEntity?.coverImage.blob} alt="">
             </div>
         </div>
+        {/each}
     </div>
 </div>

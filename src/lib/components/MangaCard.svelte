@@ -5,12 +5,12 @@
 </script>
 
 <div class="manga-card">
-	<img src={item.logo.blob || item.logo.path} alt={item.name} class="logo" />
+	<img src={item.coverImage.blob || item.coverImage.path} alt={item.name} class="logo" />
 	<div class="info">
 		<h3>{item.name}</h3>
 		<p>Тип: {item.type}</p>
 		<p>Рейтинг: {item.rating}</p>
-		<p>Жанр: {item.genre}</p>
+        <p class="genre">{item.genres.map(model => model.name).join(" ")}</p>
 	</div>
 </div>
 

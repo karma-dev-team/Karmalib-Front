@@ -12,15 +12,17 @@ export const load = (): { hotNewsItems: TitleModel[], popularItems: TitleModel[]
                 name: "Таинственная деревня",
                 rating: "9.5",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Фэнтези"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             },
             {
                 name: "Выживание в Апокалипсисе",
                 rating: "8.5",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Экшен"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             }
             // Добавьте другие элементы по аналогии
         ],
@@ -29,56 +31,64 @@ export const load = (): { hotNewsItems: TitleModel[], popularItems: TitleModel[]
                 name: "Мне было предначертано...",
                 rating: "8.6",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Психология"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             },
             {
                 name: "Варвар с Сеульского вокзала",
                 rating: "9.2",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Фэнтези"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             },
             {
                 name: "Мне было предначертано...",
                 rating: "8.6",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Психология"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             },
             {
                 name: "Варвар с Сеульского вокзала",
                 rating: "9.2",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Фэнтези"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             },
             {
                 name: "Мне было предначертано...",
                 rating: "8.6",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Психология"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             },
             {
                 name: "Варвар с Сеульского вокзала",
                 rating: "9.2",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Фэнтези"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             },            {
                 name: "Мне было предначертано...",
                 rating: "8.6",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Психология"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             },
             {
                 name: "Варвар с Сеульского вокзала",
                 rating: "9.2",
                 type: TitleTypes.Manxva,
-                logo: { path: "", blob: logoImage },
-                genre: "Фэнтези"
+                coverImage: { path: "", blob: logoImage },
+				genres: [{'name': 'Экшен'}],
+                tags: ["ХИХИАХХ"]
             }
         ]
     };

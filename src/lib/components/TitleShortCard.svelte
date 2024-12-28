@@ -5,7 +5,7 @@
 </script>
 
 <div class="card-main">
-    <img src={title.logo.path || title.logo.blob} alt={title.name} class="card-image" />
+    <img src={title.coverImage.path || title.coverImage.blob} alt={title.name} class="card-image" />
     <div class="card-content">
         <div class="card-first-line">
             <p class="card-type">{title.type}</p>

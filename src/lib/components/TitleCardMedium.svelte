@@ -6,11 +6,11 @@
 
 <!-- Карточка тайтла -->
 <div class="title-card">
-    <img class="cover-image" src={title.logo.url} alt="{title.name}" />
+    <img class="cover-image" src={title.coverImage.blob || title.coverImage.path} alt="{title.name}" />
     <div class="info">
         <p class="type">{title.type}</p>
         <h2 class="name">{title.name}</h2>
-        <p class="genre">{title.genre}</p>
+        <p class="genre">{title.genres.map(model => model.name).join(" ")}</p>
         <div class="stats">
             <span>⭐ {title.rating}</span>
         </div>

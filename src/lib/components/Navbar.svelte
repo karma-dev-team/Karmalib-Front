@@ -1,6 +1,5 @@
 <script lang="ts">
     import logoImage from '$lib/images/KarmaLibLogo.png';
-    import NavSearchbar from './NavSearchbar.svelte';
     import notificationIcon from '$lib/images/NotificationIcon.svg';
     import settingsIcon from '$lib/images/SettingsIcon.svg';
     import burgerIcon from '$lib/images/BurgerIcon.svg';

@@ -6,7 +6,6 @@
 	import { TitleTypes } from '$lib/enums/TitleTypes';
 	import { Tipex } from '@friendofsvelte/tipex';
 
-
     // Поля формы
     let mainTitle = '';
     let secondaryTitle = '';

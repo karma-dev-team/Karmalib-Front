@@ -19,19 +19,19 @@ export const load = () => {
 			id: "1",
 			name: "Путь удивительного...",
 			rating: "8.5",
-			genres: ["Фэнтези"],
+			genres: [{'name': 'Экшен'}],
 			tags: ["Лолкек"], 
 			type: TitleTypes.Comics,
-			logo: { path: "", blob: logoImage }
+			coverImage: { path: "", blob: logoImage }
 		},
 		{
 			id: "2",
 			name: "Сказка о герое",
 			rating: "9.0",
 			type: TitleTypes.Comics,
-			genres: ["Фэнтези"],
+			genres: [{'name': 'Экшен'}],
 			tags: ["Лолкек"], 
-			logo: { path: "", blob: logoImage }
+			coverImage: { path: "", blob: logoImage }
 		},
 	];
 

@@ -53,7 +53,7 @@ export function load(): { notifications: NotificationModel[] } {
                 },
                 titleEntity: {
                     id: "title567",
-                    logo: {
+                    coverImage: {
                         name: "epic-logo.png",
                         size: 1200,
                         blob: imageLogo, 
@@ -61,7 +61,7 @@ export function load(): { notifications: NotificationModel[] } {
                     name: "Epic Adventure Saga",
                     type: TitleTypes.Manga,
                     rating: "9.2",
-                    genres: ["Action", "Adventure"],
+                    genres: [{'name': 'Экшен'}],
                     tags: ["Heroic", "Fantasy"],
                     description: "Follow the journey of a young hero in an epic fantasy world.",
                     titleStatus: TitleStatus.Ongoing,

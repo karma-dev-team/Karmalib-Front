@@ -5,7 +5,7 @@
 
 	export let bookmark: BookmarkModel; // Закладка для редактирования
 	export let categories: BookmarkCategoryModel[]; // Список всех категорий
-
+    
 	const dispatch = createEventDispatcher();
 
 	let selectedCategoryIds: string[] = bookmark.category.map((c) => c.id || "");
