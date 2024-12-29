@@ -5,6 +5,7 @@ import type { PostTagModel } from "./PostTagModel";
 import type { UserModel } from "./UserModel";
 
 export interface PostModel {
+    id?: string; 
     author: UserModel; // UUID of the user who created the post
     title: string; // Title of the post
     text: string; // Content of the post

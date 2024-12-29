@@ -2,9 +2,10 @@
 	import type { PostModel } from "$lib/models/PostModel";
 	import type { PostTagModel } from "$lib/models/PostTagModel";
     import PostCard from "$lib/components/PostCard.svelte";
+    import TagsList from "$lib/components/TagsList.svelte";
 
     export let data; 
-    let { posts, tags }: { posts: PostModel[], tags: PostTagModel[] } = data; 
+    let { posts, tags, popularPosts }: { posts: PostModel[], tags: PostTagModel[], popularPosts: PostModel[] } = data; 
 </script>
 
 <div class="forum-page">
@@ -21,9 +22,7 @@
             </div>
 
             <div class="forum-header-bottom">
-                {#each tags as tag}
-                    <div class="tag-name">{tag.name}</div>
-                {/each}
+                <TagsList tags={tags}/>
             </div>
         </div>
         
@@ -43,11 +42,115 @@
         </div>
     </div>
     <div class="forum-right-bar">
-
+        <a href="/forum/create" class="forum-create-post">
+            <span class="create-post">Создать пост</span>
+        </a>
+        <div class="popular-tag">
+            <h3>Популярные теги</h3>
+            <TagsList tags={tags}/>
+        </div>
+        <div class="popular-posts">
+            <h3>Поплуярные посты за неделю</h3>
+            <div class="popular-posts-container">
+            {#each popularPosts as popularPost, i}
+                <a class="post-popular-li" href="/forum/post/{popularPost.id}">
+                    <div class="post-name">
+                        {popularPost.title}
+                    </div>
+                    <div class="post-likes">
+                        <svg xmlns="http://www.w3.org/2000/svg" 
+                            fill="currentColor" 
+                            height="16" 
+                            viewBox="0 0 24 24" 
+                            width="16">
+                            <path d="M0 0h24v24H0V0zm0 0h24v24H0V0z" fill="none"/>
+                            <path d="M13.12 2.06L7.58 7.6c-.37.37-.58.88-.58 1.41V19c0 1.1.9 2 2 2h9c.8 0 1.52-.48 1.84-1.21l3.26-7.61C23.94 10.2 22.49 8 20.34 8h-5.65l.95-4.58c.1-.5-.05-1.01-.41-1.37-.59-.58-1.53-.58-2.11.01zM3 21c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2s-2 .9-2 2v8c0 1.1.9 2 2 2z"/>
+                        </svg>
+                        {popularPost.likesCount}
+                    </div>
+                </a>
+            {/each}
+        </div>
+        </div>
     </div>
 </div>
 
 <style>
+    .popular-posts-container { 
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem; 
+    }
+
+    .post-name { 
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        overflow: hidden;
+        word-break: break-word;
+        -webkit-box-orient: vertical;
+        font-weight: 400;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .post-popular-li:hover { 
+        color: #2b85df;
+    }
+
+    .post-popular-li { 
+        border-bottom: 1px solid #414141;
+        margin-bottom: 8px;
+        color: white; 
+        gap: 0.8rem;
+        align-items: center; 
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .popular-posts { 
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem; 
+        padding: 16px 12px; 
+        background-color: var(--bg-paper);
+        border-radius: 8px;
+        
+    }
+
+    .popular-tag { 
+        padding: 18px 12px; 
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        background-color: var(--bg-paper);
+        border-radius: 12px; 
+    }
+
+    .forum-page h3 { 
+        color: #fff; 
+    }
+
+    .forum-right-bar { 
+        display: flex; 
+        flex-direction: column;
+        gap: 0.75rem; 
+    }
+    
+    .forum-create-post { 
+        background: var(--primary);
+        color: var(--text-on-primary);
+        padding: 14px 32px;
+        border-radius: 10px;
+        display: flex;
+        font-size: 13px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .forum-create-post:hover { 
+        background-color: #2b85df;
+    }
+
     .my-posts-container { 
         display: flex;
         flex-direction: row-reverse;
@@ -133,25 +236,12 @@
         width: 100%;
     }
 
-    .tag-name { 
-        cursor: pointer;
-        background-color: hsla(240, 4%, 49%, .07);
-        color: inherit;
-        vertical-align: initial;
-        margin: 2px;
-        padding: 7px 12px;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 1;
-        text-align: center;
-        text-transform: none;
-        white-space: nowrap;
-        align-items: center;
-    }
-
     .forum-page { 
+        width: 100%;
         padding: 12px; 
         padding-right: 20px;
+        display: flex;
+        gap: 1.75rem; 
     }
 
     .header-title { 

@@ -9,7 +9,7 @@ import { PostStatus } from "$lib/enums/PostTypes";
 
 export const prerender = true;
 
-export const load = (): { posts: PostModel[], tags: PostTagModel[] } => {
+export const load = (): { posts: PostModel[], tags: PostTagModel[], popularPosts: PostModel[] } => {
     const testUser: UserModel = {
         id: "123e4567-e89b-12d3-a456-426614174000",
         username: "TestUser",
@@ -93,7 +93,37 @@ export const load = (): { posts: PostModel[], tags: PostTagModel[] } => {
         },
         {
             author: testUser,
-            title: "Site Maintenance Scheduled",
+            title: "dasdasaewr Maintenance Scheduled",
+            text: "We have scheduled site maintenance for the upcoming weekend.",
+            likesCount: 24,
+            dislikesCount: 1,
+            status: PostStatus.Published,
+            pinned: false,
+            hidden: false,
+            approvedById: "moderator-2",
+            comments: [],
+            attachments: [],
+            tags: [testTags[0]],
+            createdAt: new Date()
+        },
+		{
+            author: testUser,
+            title: "Site dasdasdsa Scheduled",
+            text: "We have scheduled site maintenance for the upcoming weekend.",
+            likesCount: 24,
+            dislikesCount: 1,
+            status: PostStatus.Published,
+            pinned: false,
+            hidden: false,
+            approvedById: "moderator-2",
+            comments: [],
+            attachments: [],
+            tags: [testTags[0]],
+            createdAt: new Date()
+        },
+		{
+            author: testUser,
+            title: "dasdas Maintenance Scheduled",
             text: "We have scheduled site maintenance for the upcoming weekend.",
             likesCount: 24,
             dislikesCount: 1,
@@ -108,5 +138,5 @@ export const load = (): { posts: PostModel[], tags: PostTagModel[] } => {
         }
     ];
 
-    return { posts, tags: testTags };
+    return { posts, tags: testTags, popularPosts: posts };
 };
