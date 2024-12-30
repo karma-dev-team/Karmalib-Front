@@ -53,6 +53,19 @@ p {
 	font-weight: 400;
 }
 
+.icon-root { 
+	display: inline-block;
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    font-size: 1.5rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    fill: currentcolor;
+    transition: fill .2s cubic-bezier(.4,0,.2,1) 0ms;
+}
+
 a {
 	text-decoration: none;
 }

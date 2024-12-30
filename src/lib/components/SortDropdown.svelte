@@ -1,59 +1,62 @@
 <script lang="ts">
-	// Интерфейсы
-	export interface SortOption {
-		label: string; // Название сортировки
-		value: string; // Значение сортировки
-	}
+    import { createEventDispatcher } from 'svelte';
 
-	// Пропсы для компонента
-	let { options = [], selected = '' }: { options: SortOption[]; selected: string } = $props();
+    // Интерфейсы
+    interface SortOption {
+        label: string; // Название сортировки
+        value: string; // Значение сортировки
+    }
 
-	// Текущее выбранное значение
-	let currentSort: string = $state(selected);
+    // Пропсы для компонента
+    export let options: SortOption[] = [];
+    export let selected: string = '';
 
-	// Состояние видимости дропдауна
-	let isOpen = $state(false);
+    // Текущее выбранное значение
+    let currentSort: string = selected;
 
-	// Обработчик изменения сортировки
-	function handleSortChange(value: string) {
-		currentSort = value;
-		isOpen = false; // Закрыть список после выбора
-		dispatchEvent(new CustomEvent('sortChange', { detail: { value } }));
-	}
+    // Состояние видимости дропдауна
+    let isOpen = false;
 
-	// Переключение видимости дропдауна
-	function toggleDropdown() {
-		isOpen = !isOpen;
-	}
+    // Диспетчер событий
+    const dispatch = createEventDispatcher();
 
-	// Закрытие при клике вне дропдауна
-	function handleClickOutside(event: MouseEvent) {
-		const dropdown = event.target as HTMLElement;
-		if (!dropdown.closest('.dropdown-container')) {
-			isOpen = false;
-		}
-	}
+    // Обработчик изменения сортировки
+    function handleSortChange(value: string) {
+        currentSort = value;
+        isOpen = false; // Закрыть список после выбора
+        dispatch('sortChange', { value });
+    }
 
-	// Добавляем слушатель для клика вне элемента
-	document.addEventListener('click', handleClickOutside);
+    // Переключение видимости дропдауна
+    function toggleDropdown() {
+        isOpen = !isOpen;
+    }
+
+    // Закрытие при клике вне дропдауна
+    function handleClickOutside(event: MouseEvent) {
+        const dropdown = event.target as HTMLElement;
+        if (!dropdown.closest('.dropdown-container')) {
+            isOpen = false;
+        }
+    }
 </script>
 
 <!-- Основной контейнер -->
 <div class="dropdown-container">
-	<button class="selected" onclick={toggleDropdown} aria-haspopup="true" aria-expanded={isOpen}>
-		<span>{options.find((opt) => opt.value === currentSort)?.label || 'Выберите сортировку'}</span>
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			width="20"
-			height="20"
-			viewBox="0 0 24 24"
-			fill="currentColor"
-		>
-			<path d="M7 10l5 5 5-5z" />
-		</svg>
-	</button>
+    <button class="selected" onclick={toggleDropdown} aria-haspopup="true" aria-expanded={isOpen}>
+        <span>{options.find((opt) => opt.value === currentSort)?.label || 'Выберите сортировку'}</span>
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+        >
+            <path d="M7 10l5 5 5-5z" />
+        </svg>
+    </button>
 
-	{#if isOpen}
+    {#if isOpen}
         <ul class="dropdown" role="listbox">
             {#each options as option}
                 <li
@@ -71,17 +74,17 @@
                 </li>
             {/each}
         </ul>
-	{/if}
+    {/if}
 </div>
 
 <!-- Стили -->
 <style>
-	.dropdown-container {
-		position: relative;
-		width: 200px;
-		color: #fff;
-		font-family: Arial, sans-serif;
-	}
+    .dropdown-container {
+        position: relative;
+        width: 200px;
+        color: #fff;
+        font-family: Arial, sans-serif;
+    }
 
     .dropdown-button {
         background: none;
@@ -98,51 +101,46 @@
         background-color: #333;
     }
 
-    .selected .dropdown-button {
+    .selected {
+        background-color: #18181b;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        width: 100%;
+        text-align: left;
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #18181b;
+        border: 1px solid #333;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        border-radius: 4px;
+        z-index: 100;
+    }
+
+    .dropdown li {
+        padding: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .dropdown li:hover {
+        background-color: #333;
+    }
+
+    .dropdown li.selected {
         background-color: #007bff;
         color: #fff;
     }
-
-	.selected {
-		background-color: #18181b;
-		padding: 10px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		cursor: pointer;
-		border: none;
-		border-radius: 4px;
-		color: #fff;
-		width: 100%;
-		text-align: left;
-	}
-
-	.dropdown {
-		position: absolute;
-		top: 100%;
-		left: 0;
-		width: 100%;
-		background-color: #18181b;
-		border: 1px solid #333;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		border-radius: 4px;
-		z-index: 100;
-	}
-
-	.dropdown li {
-		padding: 10px;
-		cursor: pointer;
-		transition: background 0.2s;
-	}
-
-	.dropdown li:hover {
-		background-color: #333;
-	}
-
-	.dropdown li.selected {
-		background-color: #007bff;
-		color: #fff;
-	}
 </style>

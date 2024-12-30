@@ -4,7 +4,7 @@ import { TitleTypes } from '$lib/enums/TitleTypes.js';
 import logoImage from '$lib/images/KarmaLibLogo.png';
 import type { TitleModel } from '$lib/models/TitleModel.js';
 
-export function load({  }): { titles: TitleModel[], genres: string[], tags: string[] } {
+export function load(): { titles: TitleModel[], genres: string[], tags: string[] } {
 	return {
 		titles: [ 
 			{

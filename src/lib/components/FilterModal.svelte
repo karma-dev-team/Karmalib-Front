@@ -10,11 +10,11 @@
 	let translationStatus: string = '';
 	let ageRating: string = '';
 
-	let yearFrom: number | undefined = undefined;
-	let yearTo: number | undefined = undefined;
+	let yearFrom: number | undefined = 0;
+	let yearTo: number | undefined = 5;
 
-	let ratingFrom: number | undefined = undefined;
-	let ratingTo: number | undefined = undefined;
+	let ratingFrom: number | undefined = 0; 
+	let ratingTo: number | undefined = 5;
 
 	let chapters: string = '';
 
@@ -115,7 +115,7 @@
 <!-- Стили -->
 <style>
 	.filters-panel {
-		background-color: #18181b;
+		background-color: #1a1a1a;;
 		color: #fff;
 		padding: 20px;
 		border-radius: 8px;

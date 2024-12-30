@@ -1,12 +1,12 @@
 <script lang="ts">
-	import FilterModal from '$lib/components/FilterModal.svelte';
-	import SortDropdown from '$lib/components/SortDropdown.svelte';
-	import TitleCardMedium from '$lib/components/TitleCardMedium.svelte';
-	import type { TitleModel } from '$lib/models/TitleModel';
+    import SortDropdown from '$lib/components/SortDropdown.svelte';
+    import FilterModal from '$lib/components/FilterModal.svelte';
+    import TitleCardMedium from '$lib/components/TitleCardMedium.svelte';
+    import type { TitleModel } from '$lib/models/TitleModel';
 
-    let data: { titles: TitleModel[], genres: string[], tags: string[] } = $props(); 
+    export let data; 
 
-    let { titles, genres, tags} = data; 
+    let { titles, genres, tags }: { titles: TitleModel[], genres: string[], tags: string[] }  = data;
 
     // Сортировка
     let sortOptions = [
@@ -15,41 +15,44 @@
         { label: 'По дате', value: 'date' },
     ];
 
-    let selectedSort = $state('popularity'); // Текущее состояние сортировки
-    let isFilterModalOpen = $state(false); // Состояние фильтров
+    let selectedSort = 'popularity'; // Текущее состояние сортировки
+    let isFilterModalOpen = false; // Состояние фильтров
 
     // Обработчик смены сортировки
-    function handleSortChange(value: string) {
-        selectedSort = value;
+    function handleSortChange(event: CustomEvent<{ value: string }>) {
+        selectedSort = event.detail.value;
     }
 </script>
 
-<!-- Основной макет страницы -->
 <div class="catalog">
-    <!-- Заголовок и сортировка -->
     <header class="catalog-header">
         <h1>Каталог</h1>
-        <SortDropdown options={sortOptions} selected={selectedSort}/>
+        <SortDropdown options={sortOptions} selected={selectedSort} on:sortChange={handleSortChange} />
     </header>
 
-    <!-- Фильтры -->
-    <aside class="filters">
-        <FilterModal />
-    </aside>
+    <div class="catalog-container">
+        <div class="titles-list">
+            {#each titles as title}
+                <TitleCardMedium {title} style="flex-grow: 0;" />
+            {/each}
+        </div>
 
-    <!-- Сетка с карточками -->
-    <main class="titles-grid">
-        {#each titles as title}
-            <TitleCardMedium {title} />
-        {/each}
-    </main>
+        <div class="filters">
+            <FilterModal />
+        </div>
+    </div>
 </div>
 
-<!-- Стили -->
 <style>
+    .catalog-container { 
+        -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        display: flex;
+        gap: 1rem; 
+    }
+
     .catalog {
-        display: grid;
-        grid-template-columns: 250px 1fr;
         gap: 20px;
         padding: 20px;
         background-color: #121212;
@@ -65,15 +68,16 @@
     }
 
     .filters {
-        background-color: #18181b;
+        background-color: #1a1a1a;
         padding: 15px;
         border-radius: 8px;
     }
 
-    .titles-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
+    .titles-list {
+        width: 100%; 
+        flex-direction: column;
+        display: flex;
+        gap: 0.5rem; 
     }
 
     h1 {

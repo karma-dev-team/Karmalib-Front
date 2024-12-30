@@ -10,6 +10,8 @@ export interface TitleModel {
     name: string; 
     type: TitleTypes; 
     rating: string;
+    likesCount?: number; 
+    viewsCount?: number;
     genres: TitleTagModel[];
     tags: string[]
     description?: string; 
