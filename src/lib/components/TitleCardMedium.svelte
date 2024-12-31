@@ -1,11 +1,12 @@
 <script lang="ts">
 	import type { TitleModel } from "$lib/models/TitleModel";
+	import { id } from "date-fns/locale";
 
 	let { title, style }: { title: TitleModel, style?: string | undefined } = $props();
 </script>
 
 <!-- Карточка тайтла -->
-<div class="title-card" style={style || ""}>
+<a class="title-card" style={style || ""} href="/title/{title.id || "0"}">
 	<img class="cover-image" src={title.coverImage.blob || title.coverImage.path} alt="{title.name}" />
 	<div class="info">
 		<p class="type">{title.type}</p>
@@ -26,7 +27,7 @@
             </span>
 		</div>
 	</div>
-</div>
+</a>
 
 <!-- Стили -->
 <style>

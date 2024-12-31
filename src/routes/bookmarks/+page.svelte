@@ -55,15 +55,15 @@
         border-bottom: 2px solid #1e90ff;
     }
 
-		.bookmarks-list {
-				display: flex;
-				gap: 12px;
-		}
+	.bookmarks-list {
+		display: flex;
+		gap: 12px;
+	}
 
-		.bookmark-element {
-        width: 5%;
-        min-width: 170px;
-		}
+	.bookmark-element {
+	    width: 5%;
+	    min-width: 170px;
+	}
 
 </style>
 

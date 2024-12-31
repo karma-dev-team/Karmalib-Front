@@ -6,11 +6,13 @@
 	}
 
 	interface Props {
-		type?: 'text' | 'number' | 'select'; // Поддерживаемые типы
+		type?: 'text' | 'number' | 'select' | "password" | 'email'; // Поддерживаемые типы
 		label?: string;                     // Название поля
 		options?: Option[];                 // Опции для select
 		value?: string | number;            // Привязанное значение
 		placeholder?: string;  
+		style?: string;
+		required?: boolean; 
 	}
 
 	// Получаем параметры с типизацией
@@ -19,7 +21,9 @@
 		label = '',
 		options = [],
 		value = $bindable(''),
-		placeholder = ''  
+		placeholder = '', 
+		style = '', 
+		required = false, 
 	}: Props = $props();
 </script>
 
@@ -34,7 +38,7 @@
 			{/each}
 		</select>
 	{:else}
-		<input type={type} bind:value={value} placeholder={placeholder}/>
+		<input type={type} bind:value={value} placeholder={placeholder} style={style} required={required}/>
 	{/if}
 </div>
 
