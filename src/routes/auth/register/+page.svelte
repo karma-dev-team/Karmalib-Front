@@ -4,7 +4,10 @@
 	import ErrorMessage from "$lib/components/ErrorMessage.svelte";
 	import InputField from "$lib/components/InputField.svelte";
 	import Logo from "$lib/components/Logo.svelte";
+	import type { PageData } from "./$types";
 
+	export let data: PageData; 
+	let { authToken } = data; 
 	let email: string = "";
 	let username: string = "";
 	let password: string = "";
