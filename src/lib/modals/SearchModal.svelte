@@ -1,9 +1,13 @@
 <script lang="ts">
+	import Tabs from '$lib/components/Tabs.svelte';
+import { TitleStatus } from '$lib/enums/TitleStatus';
+	import { TitleTypes } from '$lib/enums/TitleTypes';
+	import { TranslationStatus } from '$lib/enums/TranslationStatus';
 	import type { TitleModel } from '$lib/models/TitleModel';
     import BaseModal from './BaseModal.svelte';
     import { createEventDispatcher } from 'svelte';
     // Props
-    export let isOpen: boolean = false; // Controls whether the modal is visible
+    export let isOpen: boolean; // Controls whether the modal is visible
 
     // Sample test data
     const testTitles: TitleModel[] = [
@@ -11,29 +15,29 @@
             id: '1',
             coverImage: { path: '/covers/image1.jpg', name: 'Image 1' },
             name: 'Title 1',
-            type: 'Manga',
+            type: TitleTypes.Comics,
             rating: '8.5',
             likesCount: 120,
             viewsCount: 5000,
             genres: [{ id: '1', name: 'Action' }, { id: '2', name: 'Adventure' }],
             tags: ['fantasy', 'drama'],
             description: 'An action-packed manga full of adventure.',
-            titleStatus: 'Ongoing',
-            translationStatus: 'Completed'
+            titleStatus: TitleStatus.Completed,
+            translationStatus: TranslationStatus.Abandoned, 
         },
         {
             id: '2',
             coverImage: { path: '/covers/image2.jpg', name: 'Image 2' },
             name: 'Title 2',
-            type: 'Novel',
+            type: TitleTypes.Comics,
             rating: '9.1',
             likesCount: 200,
             viewsCount: 10000,
             genres: [{ id: '3', name: 'Romance' }, { id: '4', name: 'Slice of Life' }],
             tags: ['romance', 'life'],
             description: 'A touching novel about love and daily life.',
-            titleStatus: 'Completed',
-            translationStatus: 'Ongoing'
+            titleStatus: TitleStatus.Completed,
+            translationStatus: TranslationStatus.Abandoned, 
         }
     ];
 
@@ -42,6 +46,26 @@
 
     // Search state
     let searchQuery: string = '';
+       
+    let currentFilter: {name: string, count?: number }; 
+    const filterOptions: {name: string, count?: number }[] = [
+        {
+            name: "Тайтлы"
+        }, 
+        { 
+            name: "Команды"
+        }, 
+        { 
+            name: "Авторы"
+        }, 
+        { 
+            name: "Персонажы"
+        }
+    ]
+
+    function selectFilter() { 
+        
+    }
 
     // Filtered titles based on the search query
     function filteredTitles(): TitleModel[] {
@@ -63,7 +87,7 @@
 </script>
 
 {#if isOpen}
-    <BaseModal close={closeModal}>
+    <BaseModal close={closeModal} style={"background: var(--bg-secondary);"}>
         {#snippet children()}
             <div class="modal-header">
                 <input
@@ -73,11 +97,15 @@
                     placeholder="Search titles..."
                 />
             </div>
+            <div class="modal-categries">
+                <Tabs options={filterOptions} onCategoryChange={selectFilter}/>
+            </div>
             <div class="modal-content">
                 {#if filteredTitles().length > 0}
                     <ul class="title-list">
                         {#each filteredTitles() as title}
                             <!-- svelte-ignore a11y_click_events_have_key_events -->
+                            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
                             <li class="title-item" onclick={() => selectTitle(title)}>
                                 <img src={title.coverImage.path} alt={title.coverImage.name} class="cover-image" />
                                 <div class="title-details">
@@ -111,6 +139,7 @@
     }
     .modal-content {
         padding: 16px;
+        background-color: var(--bg-secondary);
     }
     .title-list {
         list-style: none;

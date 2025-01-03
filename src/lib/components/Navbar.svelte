@@ -4,6 +4,7 @@
     import settingsIcon from '$lib/images/SettingsIcon.svg';
     import burgerIcon from '$lib/images/BurgerIcon.svg';
     import emailIcon from '$lib/images/EmailIcon.svg';
+	import SearchModal from '$lib/modals/SearchModal.svelte';
 
     export let isAuthorized: boolean;
 
@@ -15,10 +16,11 @@
     }
 
     function toggleSearchMenu() { 
-        showSearchMenu = !showUserMenu; 
+        showSearchMenu = !showSearchMenu; 
     }
 </script>
 
+<SearchModal isOpen={showSearchMenu}/>
 
 <header class="navbar">
     <div class="navbar-container">
