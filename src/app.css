@@ -17,6 +17,7 @@
 	--text-secondary: hsla(0, 0%, 100%, .64);
 	--column-margin-top: 4rem;
 	--primary: #1976d2;
+	--border: 1px solid hsla(0, 0%, 59%, .1);
 	--text-primary: #f5f5f5;
 	--text-on-primary: #fff;
 	--bg-secondary: #171717; 
@@ -25,9 +26,27 @@
 	color: var(--color-text);
 }
 
+.body-width { 
+	max-width: 1024px;
+}
+
 button { 
 	border: none; 
 	background: none; 
+}
+
+.button-primary { 
+	margin: 2px 0;
+    padding: 5px 13px;
+    border-radius: 16px;
+    font-size: 11px;
+	background: var(--primary);
+    color: var(--text-on-primary);
+}
+
+.button-primary:hover { 
+	text-decoration: none;
+	background: #1868b8;;
 }
 
 input { 
