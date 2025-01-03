@@ -6,10 +6,10 @@
 	}
 
 	interface Props {
-		type?: 'text' | 'number' | 'select' | "password" | 'email'; // Поддерживаемые типы
+		type?: 'text' | 'number' | 'select' | "password" | 'email' | 'search' | "select_multiple"; // Поддерживаемые типы
 		label?: string;                     // Название поля
 		options?: Option[];                 // Опции для select
-		value?: string | number;            // Привязанное значение
+		value?: string | number | any[];            // Привязанное значение
 		placeholder?: string;  
 		style?: string;
 		required?: boolean; 
