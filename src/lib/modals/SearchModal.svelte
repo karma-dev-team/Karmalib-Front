@@ -1,100 +1,96 @@
 <script lang="ts">
+	import type { TitleModel } from '$lib/models/TitleModel';
     import BaseModal from './BaseModal.svelte';
     import { createEventDispatcher } from 'svelte';
-    import { goto } from '$app/navigation'; // For redirection in SvelteKit
-
-    // Define the tab types
-    type Tab = 'titles' | 'teams' | 'authors' | 'characters';
-
     // Props
-    export let redirectMode: boolean = false; // If true, pressing Enter redirects to /search
+    export let isOpen: boolean = false; // Controls whether the modal is visible
 
-    // State variables
-    let isOpen: boolean = false;
-    let searchQuery: string = '';
-    let activeTab: Tab = 'titles';
-
-    // Tabs and their corresponding items
-    const tabs: Tab[] = ['titles', 'teams', 'authors', 'characters'];
-    const items: Record<Tab, string[]> = {
-        titles: ['ЛИХОЙ', 'ДаДаДаДан', 'Повседневная жизнь Нанако-сан! РЫВОК!', 'Уход за Комори-тян', 'Ну и что, что ты моя горничная?'],
-        teams: [],
-        authors: [],
-        characters: []
-    };
+    // Sample test data
+    const testTitles: TitleModel[] = [
+        {
+            id: '1',
+            coverImage: { path: '/covers/image1.jpg', name: 'Image 1' },
+            name: 'Title 1',
+            type: 'Manga',
+            rating: '8.5',
+            likesCount: 120,
+            viewsCount: 5000,
+            genres: [{ id: '1', name: 'Action' }, { id: '2', name: 'Adventure' }],
+            tags: ['fantasy', 'drama'],
+            description: 'An action-packed manga full of adventure.',
+            titleStatus: 'Ongoing',
+            translationStatus: 'Completed'
+        },
+        {
+            id: '2',
+            coverImage: { path: '/covers/image2.jpg', name: 'Image 2' },
+            name: 'Title 2',
+            type: 'Novel',
+            rating: '9.1',
+            likesCount: 200,
+            viewsCount: 10000,
+            genres: [{ id: '3', name: 'Romance' }, { id: '4', name: 'Slice of Life' }],
+            tags: ['romance', 'life'],
+            description: 'A touching novel about love and daily life.',
+            titleStatus: 'Completed',
+            translationStatus: 'Ongoing'
+        }
+    ];
 
     // Event dispatcher
-    const dispatch = createEventDispatcher<{ select: { entity: string; tab: Tab } }>();
+    const dispatch = createEventDispatcher<{ select: TitleModel }>();
 
-    // Open and close modal
-    function openModal(): void {
-        isOpen = true;
-    }
+    // Search state
+    let searchQuery: string = '';
 
-    function closeModal(): void {
-        isOpen = false;
-    }
-
-    // Set active tab
-    function setActiveTab(tab: Tab): void {
-        activeTab = tab;
-    }
-
-    // Filter items based on the search query
-    function filteredItems(): string[] {
-        return items[activeTab].filter((item) =>
-            item.toLowerCase().includes(searchQuery.toLowerCase())
+    // Filtered titles based on the search query
+    function filteredTitles(): TitleModel[] {
+        return testTitles.filter((title) =>
+            title.name.toLowerCase().includes(searchQuery.toLowerCase())
         );
     }
 
-    // Handle selection of an item
-    function selectItem(item: string): void {
-        dispatch('select', { entity: item, tab: activeTab });
+    // Handle selection of a title
+    function selectTitle(title: TitleModel): void {
+        dispatch('select', title); // Emit the selected title
         closeModal();
     }
 
-    // Handle Enter keypress
-    function handleEnterKey(event: KeyboardEvent): void {
-        if (event.key === 'Enter' && redirectMode) {
-            goto(`/search?query=${encodeURIComponent(searchQuery)}`);
-        }
+    // Close the modal
+    function closeModal(): void {
+        isOpen = false;
     }
 </script>
-
-<!-- Trigger to Open Modal -->
-<button on:click={openModal}>Open Search Modal</button>
 
 {#if isOpen}
     <BaseModal close={closeModal}>
         {#snippet children()}
             <div class="modal-header">
-                <input 
-                    type="text" 
-                    class="search-bar" 
-                    bind:value={searchQuery} 
-                    placeholder="Search..." 
-                    on:keydown={handleEnterKey}
+                <input
+                    type="text"
+                    class="search-bar"
+                    bind:value={searchQuery}
+                    placeholder="Search titles..."
                 />
             </div>
-            <div class="tabs">
-                {#each tabs as tab}
-                    <button 
-                        class:active={activeTab === tab} 
-                        on:click={() => setActiveTab(tab)}
-                    >
-                        {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                    </button>
-                {/each}
-            </div>
             <div class="modal-content">
-                {#if filteredItems().length > 0}
-                    <ul>
-                        {#each filteredItems() as item}
-                            <li on:click={() => selectItem(item)}>{item}</li>
+                {#if filteredTitles().length > 0}
+                    <ul class="title-list">
+                        {#each filteredTitles() as title}
+                            <!-- svelte-ignore a11y_click_events_have_key_events -->
+                            <li class="title-item" onclick={() => selectTitle(title)}>
+                                <img src={title.coverImage.path} alt={title.coverImage.name} class="cover-image" />
+                                <div class="title-details">
+                                    <h3>{title.name}</h3>
+                                    <p>Type: {title.type}</p>
+                                    <p>Rating: {title.rating}</p>
+                                    <p>Genres: {title.genres.map(g => g.name).join(', ')}</p>
+                                </div>
+                            </li>
                         {/each}
                     </ul>
                 {:else}
-                    <p>No items found.</p>
+                    <p>No titles found.</p>
                 {/if}
             </div>
         {/snippet}
@@ -113,34 +109,39 @@
         background: #2a2a2a;
         color: #fff;
     }
-    .tabs {
-        display: flex;
-        justify-content: space-around;
-        margin-bottom: 16px;
+    .modal-content {
+        padding: 16px;
     }
-    .tabs button {
-        background: none;
-        color: #ccc;
-        border: none;
-        padding: 8px;
-        cursor: pointer;
-    }
-    .tabs button.active {
-        color: #fff;
-        font-weight: bold;
-        border-bottom: 2px solid #fff;
-    }
-    .modal-content ul {
+    .title-list {
         list-style: none;
         padding: 0;
-        margin: 0;
     }
-    .modal-content li {
+    .title-item {
+        display: flex;
+        align-items: center;
         padding: 8px;
-        border-bottom: 1px solid #333;
+        margin-bottom: 8px;
+        border: 1px solid #333;
+        border-radius: 4px;
         cursor: pointer;
+        background-color: #1e1e1e;
     }
-    .modal-content li:hover {
-        background: #333;
+    .title-item:hover {
+        background-color: #333;
+    }
+    .cover-image {
+        width: 50px;
+        height: 75px;
+        margin-right: 12px;
+        object-fit: cover;
+    }
+    .title-details h3 {
+        margin: 0 0 4px;
+        color: #fff;
+    }
+    .title-details p {
+        margin: 0;
+        color: #aaa;
+        font-size: 0.9rem;
     }
 </style>
