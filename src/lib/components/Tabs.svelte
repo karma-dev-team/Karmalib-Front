@@ -8,15 +8,14 @@
     export let fontSize: string = '1rem'; // Customizable font size
     export let options: Option[]; // List of categories
     export let onCategoryChange: (option: Option) => void; // Callback when a category is selected
-
     // Event dispatcher
-    const dispatch = createEventDispatcher<{ categoryChange: string }>();
+    const dispatch = createEventDispatcher<{ categoryChange: Option }>();
 
     // Handle tab click
-    function handleTabClick(id: string): void {
-        if (id !== activeCategoryId) {
-            onCategoryChange(id); // Trigger the callback function
-            dispatch('categoryChange', id); // Emit the event for parent listeners
+    function handleTabClick(option: Option): void {
+        if (option.name !== activeCategoryId) {
+            onCategoryChange(option); // Trigger the callback function
+            dispatch('categoryChange', option); // Emit the event for parent listeners
         }
     }
 </script>
@@ -25,7 +24,7 @@
     {#each options as option}
         <button
             class="tab {activeCategoryId === option.name ? 'active' : ''}"
-            on:click={() => handleTabClick(option.name)}
+            on:click={() => handleTabClick(option)}
         >
             {option.name}
             {#if option.count !== undefined && option.count !== null}

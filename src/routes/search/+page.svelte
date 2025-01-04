@@ -1,12 +1,14 @@
 <script lang="ts">
 	import type { TitleModel } from '$lib/models/TitleModel';
+	import type { PageData } from './$types';
 
+	export let data: PageData; 
 	export let results: {
-		titles: TitleModel[]
-		characters: { name: string; description: string }[]
-		authors: { name: string; bio: string }[]
-		teams: { name: string; members: number }[]
-	}
+		titles: TitleModel[];
+		characters: { name: string; description: string }[];
+		authors: { name: string; bio: string }[];
+		teams: { name: string; members: number }[];
+	} = data.results; 
 
 	console.log('Results:', results);
 </script>

@@ -20,7 +20,7 @@
     }
 </script>
 
-<SearchModal isOpen={showSearchMenu}/>
+<SearchModal isOpen={showSearchMenu} redirectMode={true}/>
 
 <header class="navbar">
     <div class="navbar-container">

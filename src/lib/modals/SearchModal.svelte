@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto, replaceState } from '$app/navigation';
 	import Tabs from '$lib/components/Tabs.svelte';
 import { TitleStatus } from '$lib/enums/TitleStatus';
 	import { TitleTypes } from '$lib/enums/TitleTypes';
@@ -8,6 +9,7 @@ import { TitleStatus } from '$lib/enums/TitleStatus';
     import { createEventDispatcher } from 'svelte';
     // Props
     export let isOpen: boolean; // Controls whether the modal is visible
+    export let redirectMode: boolean = false; // If true, pressing Enter redirects to /search
 
     // Sample test data
     const testTitles: TitleModel[] = [
@@ -46,9 +48,10 @@ import { TitleStatus } from '$lib/enums/TitleStatus';
 
     // Search state
     let searchQuery: string = '';
+
+    interface Option {name: string, count?: number }; 
        
-    let currentFilter: {name: string, count?: number }; 
-    const filterOptions: {name: string, count?: number }[] = [
+    const filterOptions: Option[] = [
         {
             name: "Тайтлы"
         }, 
@@ -63,9 +66,11 @@ import { TitleStatus } from '$lib/enums/TitleStatus';
         }
     ]
 
-    function selectFilter() { 
-        
+    function selectFilter(option: Option) { 
+        activeCategory = option; 
     }
+
+    let activeCategory: Option = filterOptions[0]
 
     // Filtered titles based on the search query
     function filteredTitles(): TitleModel[] {
@@ -84,6 +89,13 @@ import { TitleStatus } from '$lib/enums/TitleStatus';
     function closeModal(): void {
         isOpen = false;
     }
+
+    function handleEnterKey(event: KeyboardEvent): void {
+        if (event.key === 'Enter' && redirectMode) {
+            goto(`/search?query=${encodeURIComponent(searchQuery)}`);
+            isOpen = false; 
+        }
+    }
 </script>
 
 {#if isOpen}
@@ -95,10 +107,11 @@ import { TitleStatus } from '$lib/enums/TitleStatus';
                     class="search-bar"
                     bind:value={searchQuery}
                     placeholder="Search titles..."
+                    onkeydown={handleEnterKey}
                 />
             </div>
             <div class="modal-categries">
-                <Tabs options={filterOptions} onCategoryChange={selectFilter}/>
+                <Tabs options={filterOptions} onCategoryChange={selectFilter} activeCategoryId={activeCategory.name}/>
             </div>
             <div class="modal-content">
                 {#if filteredTitles().length > 0}
