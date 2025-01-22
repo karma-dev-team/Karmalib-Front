@@ -31,7 +31,7 @@
                 <div class="navbar-category-text">СМОТРЕТЬ КАТЕГОРИИ</div>
             </div>
             <div class="navbar-right">
-                <a href="/forum/news" class="navbar-element-header">Новости</a>
+                <a href="/forum?tag=#news" class="navbar-element-header">Новости</a>
                 <div class="icon-button">
                     <img src={emailIcon} alt="Email">
                 </div>
@@ -55,12 +55,12 @@
             </div>
             <div class="navbar-right">
                 <a href="/bookmarks" class="navbar-element">Закладки</a>
-                <div class="icon-button navbar-element">
+                <a href="/user/notifications" class="icon-button navbar-element">
                     <img src={notificationIcon} alt="Уведомления" style="width: 15px">
-                </div>
-                <div class="icon-button  navbar-element">
+                </a>
+                <a href="/user/settings" class="icon-button  navbar-element">
                     <img src={settingsIcon} alt="Настройки">
-                </div>
+                </a>
                 {#if isAuthorized}
                     <div class="avatar-icon-container">
                         <button class="avatar-button" onclick={toggleUserMenu}>
